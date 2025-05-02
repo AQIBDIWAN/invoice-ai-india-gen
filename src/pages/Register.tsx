@@ -1,25 +1,51 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FileText } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would handle registration
+    
+    // Simple validation
+    if (!name || !email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    
+    if (!acceptTerms) {
+      toast.error("Please accept the terms and conditions");
+      return;
+    }
+    
+    // In a real app, this would register with a backend
     console.log("Registration attempt:", { name, email, password, acceptTerms });
-    // For now, redirect to dashboard
-    window.location.href = "/dashboard";
+    
+    // Mock successful registration
+    const userData = {
+      username: name,
+      email,
+      isLoggedIn: true
+    };
+    
+    // Store user data in localStorage
+    localStorage.setItem('user', JSON.stringify(userData));
+    toast.success("Registration successful!");
+    
+    // Redirect to dashboard
+    navigate("/dashboard");
   };
 
   return (
@@ -82,7 +108,6 @@ const Register = () => {
                   id="terms" 
                   checked={acceptTerms}
                   onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
-                  required
                 />
                 <label 
                   htmlFor="terms" 

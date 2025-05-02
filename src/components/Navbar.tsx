@@ -1,15 +1,69 @@
 
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
-import { FileText, Plus, User } from "lucide-react";
+import { FileText, Plus, User, LogOut, Upload } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
+
+interface UserData {
+  username: string;
+  isLoggedIn: boolean;
+}
 
 const Navbar = () => {
+  const [user, setUser] = useState<UserData | null>(null);
+  const [sellerLogo, setSellerLogo] = useState<string | null>(null);
+  const navigate = useNavigate();
+  
+  // Check if user is logged in on component mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const storedLogo = localStorage.getItem('sellerLogo');
+    
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    
+    if (storedLogo) {
+      setSellerLogo(storedLogo);
+    }
+  }, []);
+  
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
+  
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const logoData = event.target?.result as string;
+        setSellerLogo(logoData);
+        localStorage.setItem('sellerLogo', logoData);
+        toast.success("Logo uploaded successfully");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <FileText className="h-6 w-6 text-invoice-primary" />
+            {sellerLogo ? (
+              <img 
+                src={sellerLogo} 
+                alt="Seller Logo" 
+                className="h-8 w-8 object-contain"
+              />
+            ) : (
+              <FileText className="h-6 w-6 text-invoice-primary" />
+            )}
             <span className="font-bold text-xl text-invoice-dark">InvoiceAI</span>
           </Link>
           
@@ -23,12 +77,42 @@ const Navbar = () => {
           </nav>
           
           <div className="flex items-center gap-3">
-            <Button variant="outline" asChild>
-              <Link to="/login">
-                <User className="h-4 w-4 mr-2" />
-                Login
-              </Link>
-            </Button>
+            {user?.isLoggedIn ? (
+              <>
+                {/* Logo upload button */}
+                <div className="relative">
+                  <input 
+                    type="file" 
+                    id="logo-upload" 
+                    accept="image/*" 
+                    onChange={handleLogoUpload}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  <Button variant="outline" size="sm" className="relative z-0">
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload Logo
+                  </Button>
+                </div>
+                
+                {/* User info and logout */}
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium hidden sm:inline">
+                    {user.username}
+                  </span>
+                  <Button variant="outline" onClick={handleLogout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <Button variant="outline" asChild>
+                <Link to="/login">
+                  <User className="h-4 w-4 mr-2" />
+                  Login
+                </Link>
+              </Button>
+            )}
             
             <Button asChild>
               <Link to="/create-invoice">

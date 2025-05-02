@@ -1,22 +1,44 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FileText } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would handle authentication
+    
+    // Simple validation
+    if (!email || !password) {
+      toast.error("Please enter both email and password");
+      return;
+    }
+    
+    // In a real app, this would authenticate with a backend
     console.log("Login attempt:", { email, password });
-    // For now, redirect to dashboard
-    window.location.href = "/dashboard";
+    
+    // Mock successful login
+    const username = email.split('@')[0]; // Extract username from email
+    const userData = {
+      username,
+      email,
+      isLoggedIn: true
+    };
+    
+    // Store user data in localStorage
+    localStorage.setItem('user', JSON.stringify(userData));
+    toast.success("Login successful!");
+    
+    // Redirect to dashboard
+    navigate("/dashboard");
   };
 
   return (
