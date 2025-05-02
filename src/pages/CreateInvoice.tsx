@@ -12,10 +12,12 @@ import InvoicePreview from "@/components/invoice/InvoicePreview";
 import AIInvoiceGenerator from "@/components/invoice/AIInvoiceGenerator";
 import InvoiceSummary from "@/components/invoice/InvoiceSummary";
 import { useInvoice } from "@/contexts/InvoiceContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const CreateInvoice = () => {
   const [activeTab, setActiveTab] = useState<string>("manual");
   const { resetInvoice } = useInvoice();
+  const isMobile = useIsMobile();
 
   return (
     <div className="space-y-6">
@@ -39,30 +41,32 @@ const CreateInvoice = () => {
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="manual" className="flex gap-2">
             <FileText className="h-4 w-4" />
-            Manual Entry
+            <span className="hidden sm:inline">Manual Entry</span>
+            <span className="sm:hidden">Manual</span>
           </TabsTrigger>
           <TabsTrigger value="ai" className="flex gap-2">
             <Bot className="h-4 w-4" />
-            AI Generator
+            <span className="hidden sm:inline">AI Generator</span>
+            <span className="sm:hidden">AI</span>
           </TabsTrigger>
         </TabsList>
         
         <TabsContent value="manual">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <SellerForm />
               </Card>
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <CustomerForm />
               </Card>
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <InvoiceDetailsForm />
               </Card>
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <ProductsForm />
               </Card>
               
@@ -71,11 +75,31 @@ const CreateInvoice = () => {
               </div>
             </div>
             
-            <div className="lg:col-span-1">
-              <div className="sticky top-6">
-                <InvoicePreview />
+            {!isMobile && (
+              <div className="lg:col-span-1">
+                <div className="sticky top-6">
+                  <InvoicePreview />
+                </div>
               </div>
-            </div>
+            )}
+            
+            {isMobile && (
+              <div className="lg:col-span-1">
+                <Card className="p-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-medium">Preview Invoice</h3>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => window.open('#invoice-preview', '_blank')}
+                    >
+                      View Full Preview
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-500">Complete the form to generate your invoice. Use the button above to view the full preview.</p>
+                </Card>
+              </div>
+            )}
           </div>
         </TabsContent>
         
@@ -84,19 +108,19 @@ const CreateInvoice = () => {
             <div className="lg:col-span-2 space-y-6">
               <AIInvoiceGenerator />
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <SellerForm />
               </Card>
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <CustomerForm />
               </Card>
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <InvoiceDetailsForm />
               </Card>
               
-              <Card className="p-6">
+              <Card className="p-4 sm:p-6">
                 <ProductsForm />
               </Card>
               
@@ -105,11 +129,31 @@ const CreateInvoice = () => {
               </div>
             </div>
             
-            <div className="lg:col-span-1">
-              <div className="sticky top-6">
-                <InvoicePreview />
+            {!isMobile && (
+              <div className="lg:col-span-1">
+                <div className="sticky top-6">
+                  <InvoicePreview />
+                </div>
               </div>
-            </div>
+            )}
+            
+            {isMobile && (
+              <div className="lg:col-span-1">
+                <Card className="p-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-medium">Preview Invoice</h3>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => window.open('#invoice-preview', '_blank')}
+                    >
+                      View Full Preview
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-500">Complete the form to generate your invoice. Use the button above to view the full preview.</p>
+                </Card>
+              </div>
+            )}
           </div>
         </TabsContent>
       </Tabs>

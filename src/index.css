@@ -121,3 +121,47 @@
     transform: translateY(0);
   }
 }
+
+/* Mobile responsive utilities */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  input, select, textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+  
+  /* Improve tap target sizes on mobile */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Remove App.css styles that might conflict */
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Fix for mobile overflow issues */
+.overflow-fix {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Improve touch scrolling feel */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Adjust Layout */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+}

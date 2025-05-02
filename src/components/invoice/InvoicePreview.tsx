@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { formatIndianCurrency, numberToWords } from '@/utils/gstUtils';
 import { useInvoice } from '@/contexts/InvoiceContext';
 import { Printer } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const InvoicePreview = () => {
   const { 
@@ -18,6 +19,7 @@ const InvoicePreview = () => {
   } = useInvoice();
   
   const invoiceRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   
   const handlePrint = () => {
     const printContent = document.getElementById('invoice-print');
@@ -37,41 +39,42 @@ const InvoicePreview = () => {
   const grandTotal = calculateGrandTotal();
   
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" id="invoice-preview">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">Invoice Preview</h2>
         <Button onClick={handlePrint} className="flex items-center gap-2">
           <Printer className="h-4 w-4" />
-          Print Invoice
+          <span className="hidden sm:inline">Print Invoice</span>
+          <span className="sm:hidden">Print</span>
         </Button>
       </div>
       
       <div 
         id="invoice-print" 
         ref={invoiceRef} 
-        className="border rounded-lg p-8 bg-white invoice-paper animate-fade-in"
+        className="border rounded-lg p-4 sm:p-8 bg-white invoice-paper animate-fade-in overflow-x-auto"
       >
-        <div className="mb-8 flex justify-between items-start">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start gap-4">
           <div className="flex items-center gap-4">
             {seller.logo && (
               <img 
                 src={seller.logo} 
                 alt="Seller Logo" 
-                className="h-16 w-16 object-contain"
+                className="h-12 w-12 sm:h-16 sm:w-16 object-contain"
               />
             )}
             <div>
-              <h1 className="text-2xl font-bold text-invoice-primary">INVOICE</h1>
-              <p className="text-sm text-gray-500"># {invoiceDetails.invoiceNumber}</p>
+              <h1 className="text-xl sm:text-2xl font-bold text-invoice-primary">INVOICE</h1>
+              <p className="text-xs sm:text-sm text-gray-500"># {invoiceDetails.invoiceNumber}</p>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right w-full sm:w-auto">
             <div className="mb-2">
-              <p className="font-semibold text-lg">{seller.businessName}</p>
-              <p className="text-gray-600">{seller.address}</p>
-              <p className="text-gray-600">{seller.city}, {seller.state} - {seller.pincode}</p>
+              <p className="font-semibold text-base sm:text-lg">{seller.businessName}</p>
+              <p className="text-sm text-gray-600">{seller.address}</p>
+              <p className="text-sm text-gray-600">{seller.city}, {seller.state} - {seller.pincode}</p>
             </div>
-            <div className="text-sm">
+            <div className="text-xs sm:text-sm">
               <p>GSTIN: {seller.gstNumber}</p>
               <p>Email: {seller.email}</p>
               <p>Phone: {seller.phone}</p>
@@ -79,16 +82,16 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8">
           <div className="space-y-2">
             <h3 className="font-medium text-gray-600">Bill To:</h3>
             <p className="font-semibold">{customer.businessName}</p>
             <p>Attn: {customer.name}</p>
-            <p>{customer.address}</p>
-            <p>{customer.city}, {customer.state} - {customer.pincode}</p>
-            <p>GSTIN: {customer.gstNumber}</p>
-            <p>Email: {customer.email}</p>
-            <p>Phone: {customer.phone}</p>
+            <p className="text-sm">{customer.address}</p>
+            <p className="text-sm">{customer.city}, {customer.state} - {customer.pincode}</p>
+            <p className="text-sm">GSTIN: {customer.gstNumber}</p>
+            <p className="text-sm">Email: {customer.email}</p>
+            <p className="text-sm">Phone: {customer.phone}</p>
           </div>
           
           <div className="space-y-1 text-sm md:text-right">
@@ -113,45 +116,47 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="mb-8">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-300">
-                <th className="py-2 text-left">Item</th>
-                <th className="py-2 text-center">Unit</th>
-                <th className="py-2 text-center">Qty</th>
-                <th className="py-2 text-right">Price</th>
-                <th className="py-2 text-right">Discount</th>
-                <th className="py-2 text-right">GST</th>
-                <th className="py-2 text-right">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => {
-                const itemTotal = product.quantity * product.unitPrice;
-                const discountAmount = (itemTotal * product.discountRate) / 100;
-                const taxableAmount = itemTotal - discountAmount;
-                const taxAmount = (taxableAmount * product.tax) / 100;
-                const total = taxableAmount + taxAmount;
-                
-                return (
-                  <tr key={product.id} className="border-b border-gray-200">
-                    <td className="py-2">{product.name}</td>
-                    <td className="py-2 text-center">{product.unit}</td>
-                    <td className="py-2 text-center">{product.quantity}</td>
-                    <td className="py-2 text-right">{formatIndianCurrency(product.unitPrice)}</td>
-                    <td className="py-2 text-right">{product.discountRate}%</td>
-                    <td className="py-2 text-right">{product.tax}%</td>
-                    <td className="py-2 text-right">{formatIndianCurrency(total)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="mb-6 sm:mb-8 overflow-x-auto">
+          <div className="min-w-[600px]">
+            <table className="w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="border-b border-gray-300">
+                  <th className="py-2 text-left">Item</th>
+                  <th className="py-2 text-center">Unit</th>
+                  <th className="py-2 text-center">Qty</th>
+                  <th className="py-2 text-right">Price</th>
+                  <th className="py-2 text-right">Discount</th>
+                  <th className="py-2 text-right">GST</th>
+                  <th className="py-2 text-right">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => {
+                  const itemTotal = product.quantity * product.unitPrice;
+                  const discountAmount = (itemTotal * product.discountRate) / 100;
+                  const taxableAmount = itemTotal - discountAmount;
+                  const taxAmount = (taxableAmount * product.tax) / 100;
+                  const total = taxableAmount + taxAmount;
+                  
+                  return (
+                    <tr key={product.id} className="border-b border-gray-200">
+                      <td className="py-2">{product.name}</td>
+                      <td className="py-2 text-center">{product.unit}</td>
+                      <td className="py-2 text-center">{product.quantity}</td>
+                      <td className="py-2 text-right">{formatIndianCurrency(product.unitPrice)}</td>
+                      <td className="py-2 text-right">{product.discountRate}%</td>
+                      <td className="py-2 text-right">{product.tax}%</td>
+                      <td className="py-2 text-right">{formatIndianCurrency(total)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
         
-        <div className="flex justify-end mb-8">
-          <div className="w-full md:w-1/2">
+        <div className="flex justify-end mb-6 sm:mb-8">
+          <div className="w-full sm:w-1/2">
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal:</span>
@@ -175,17 +180,17 @@ const InvoicePreview = () => {
         
         <div className="border-t pt-3">
           <div className="mb-4">
-            <p className="text-sm italic">Amount in words: <span className="font-medium">{numberToWords(grandTotal)}</span></p>
+            <p className="text-xs sm:text-sm italic">Amount in words: <span className="font-medium">{numberToWords(grandTotal)}</span></p>
           </div>
           
           {invoiceDetails.description && (
             <div className="mb-6">
-              <h4 className="text-sm font-semibold mb-1">Notes:</h4>
-              <p className="text-sm text-gray-600">{invoiceDetails.description}</p>
+              <h4 className="text-xs sm:text-sm font-semibold mb-1">Notes:</h4>
+              <p className="text-xs sm:text-sm text-gray-600">{invoiceDetails.description}</p>
             </div>
           )}
           
-          <div className="mt-8 text-center text-xs text-gray-500">
+          <div className="mt-6 sm:mt-8 text-center text-xs text-gray-500">
             <p>This is a computer generated invoice and does not require a physical signature.</p>
           </div>
         </div>

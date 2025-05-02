@@ -36,7 +36,7 @@ const InvoiceDetailsForm = () => {
       <h2 className="text-lg font-semibold text-gray-800">Invoice Details</h2>
       
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 space-y-2">
             <Label htmlFor="invoiceNumber">Invoice Number</Label>
             <Input 
@@ -70,7 +70,7 @@ const InvoiceDetailsForm = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 space-y-2">
             <Label htmlFor="paymentMethod">Payment Method</Label>
             <Select 
@@ -91,7 +91,7 @@ const InvoiceDetailsForm = () => {
           </div>
           
           <div className="flex-1 space-y-2">
-            <Label htmlFor="isPaid" className="block mb-5">Payment Status</Label>
+            <Label htmlFor="isPaid" className="block mb-3 sm:mb-5">Payment Status</Label>
             <div className="flex items-center space-x-2">
               <Switch 
                 id="isPaid"
