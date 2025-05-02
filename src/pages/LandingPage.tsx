@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { FileText, Bot, ChevronRight } from "lucide-react";
+import { FileText, Bot, ChevronRight, CheckCircle, Award, Shield, Clock, Phone } from "lucide-react";
 
 const LandingPage = () => {
   return (
@@ -95,6 +95,20 @@ const LandingPage = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">GST Compliance</h3>
                 <p className="text-gray-600">Automatically validate GST numbers and generate invoices that comply with Indian tax regulations.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Automatic GST calculation based on HSN/SAC codes</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>CGST & SGST/IGST split for interstate transactions</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>GST number validation with proper format checking</span>
+                  </li>
+                </ul>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
@@ -103,6 +117,20 @@ const LandingPage = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">AI-Powered</h3>
                 <p className="text-gray-600">Let our AI generate invoices from simple text descriptions, saving you time on manual data entry.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Auto-fill invoice items from plain text descriptions</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Smart product categorization and tax rate assignment</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Intelligent customer data extraction and matching</span>
+                  </li>
+                </ul>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
@@ -113,8 +141,48 @@ const LandingPage = () => {
                     <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Instant Printing</h3>
-                <p className="text-gray-600">Generate professional, print-ready invoices that you can immediately share with your customers.</p>
+                <h3 className="text-xl font-semibold mb-2">Complete Business Solution</h3>
+                <p className="text-gray-600">More than just invoices - a complete solution for your business finances.</p>
+                <ul className="mt-4 space-y-2">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Dashboard with financial insights and analytics</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Customer management and history tracking</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Payment tracking and automated reminders</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-invoice-light rounded-full flex items-center justify-center mr-4">
+                    <Award className="h-5 w-5 text-invoice-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold">Premium Quality</h3>
+                </div>
+                <p className="text-gray-600">
+                  Our professionally designed invoice templates ensure your business makes a great impression. Customize with your logo, colors, and brand elements for a personalized touch.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-invoice-light rounded-full flex items-center justify-center mr-4">
+                    <Shield className="h-5 w-5 text-invoice-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold">Secure & Compliant</h3>
+                </div>
+                <p className="text-gray-600">
+                  Your data is always secure with end-to-end encryption. We ensure full compliance with Indian financial regulations, so you can focus on running your business with peace of mind.
+                </p>
               </div>
             </div>
           </div>
@@ -142,13 +210,25 @@ const LandingPage = () => {
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Basic AI features
+                    Basic invoice templates
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     GST validation
+                  </li>
+                  <li className="flex items-center text-gray-400">
+                    <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    No AI features
+                  </li>
+                  <li className="flex items-center text-gray-400">
+                    <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    No customer management
                   </li>
                 </ul>
                 <Button className="w-full" variant="outline">Get Started</Button>
@@ -171,7 +251,13 @@ const LandingPage = () => {
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Advanced AI generation
+                    All premium templates
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Basic AI generation
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -197,13 +283,19 @@ const LandingPage = () => {
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Everything in Business
+                    Everything in Business plan
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     Multiple user accounts
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Advanced AI features
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -217,8 +309,146 @@ const LandingPage = () => {
                     </svg>
                     Priority support
                   </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Custom integration support
+                  </li>
                 </ul>
                 <Button className="w-full" variant="outline">Contact Sales</Button>
+              </div>
+            </div>
+            
+            <div className="mt-16 bg-gray-50 p-8 rounded-lg">
+              <h3 className="text-xl font-semibold mb-4 text-center">Compare Plan Features</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="text-left border-b">
+                      <th className="pb-3 pl-4 font-medium">Feature</th>
+                      <th className="pb-3 font-medium text-center">Free</th>
+                      <th className="pb-3 font-medium text-center">Business</th>
+                      <th className="pb-3 font-medium text-center">Enterprise</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b">
+                      <td className="py-3 pl-4">Monthly Invoices</td>
+                      <td className="py-3 text-center">5</td>
+                      <td className="py-3 text-center">Unlimited</td>
+                      <td className="py-3 text-center">Unlimited</td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-3 pl-4">Invoice Templates</td>
+                      <td className="py-3 text-center">3</td>
+                      <td className="py-3 text-center">10</td>
+                      <td className="py-3 text-center">All + Custom</td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-3 pl-4">Customer Management</td>
+                      <td className="py-3 text-center">❌</td>
+                      <td className="py-3 text-center">✅</td>
+                      <td className="py-3 text-center">✅</td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-3 pl-4">User Accounts</td>
+                      <td className="py-3 text-center">1</td>
+                      <td className="py-3 text-center">3</td>
+                      <td className="py-3 text-center">10+</td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-3 pl-4">Email Support</td>
+                      <td className="py-3 text-center">❌</td>
+                      <td className="py-3 text-center">✅</td>
+                      <td className="py-3 text-center">Priority</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section id="about" className="py-20 px-4 bg-gray-50">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl font-bold mb-6">About InvoiceAI</h2>
+                <p className="text-gray-600 mb-6">
+                  Founded in 2023, InvoiceAI was created with a simple mission: to help Indian businesses simplify their invoicing and financial management processes.
+                </p>
+                <p className="text-gray-600 mb-6">
+                  Our team of experienced developers and financial experts combined their knowledge to create a platform that understands the unique needs of businesses operating in India's complex tax environment.
+                </p>
+                <p className="text-gray-600 mb-6">
+                  With a focus on GST compliance, user-friendly design, and cutting-edge AI technology, we've helped thousands of businesses save time and reduce errors in their invoicing processes.
+                </p>
+                <div className="flex items-center space-x-6 mt-8">
+                  <div className="flex flex-col items-center">
+                    <span className="text-3xl font-bold text-invoice-primary">5000+</span>
+                    <span className="text-gray-500">Happy Customers</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-3xl font-bold text-invoice-primary">100,000+</span>
+                    <span className="text-gray-500">Invoices Generated</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-3xl font-bold text-invoice-primary">₹150Cr+</span>
+                    <span className="text-gray-500">Transactions</span>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-8">
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="flex items-center mb-4">
+                    <Award className="h-6 w-6 text-invoice-primary mr-3" />
+                    <h3 className="text-xl font-semibold">Our Mission</h3>
+                  </div>
+                  <p className="text-gray-600">
+                    To simplify financial management for Indian businesses through intelligent, easy-to-use tools that ensure compliance and accuracy.
+                  </p>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="flex items-center mb-4">
+                    <Shield className="h-6 w-6 text-invoice-primary mr-3" />
+                    <h3 className="text-xl font-semibold">Our Values</h3>
+                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span><strong>Simplicity:</strong> Making complex financial tasks easy</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span><strong>Innovation:</strong> Constantly improving our technology</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span><strong>Reliability:</strong> Being a trusted partner for businesses</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="flex items-center mb-4">
+                    <Phone className="h-6 w-6 text-invoice-primary mr-3" />
+                    <h3 className="text-xl font-semibold">Contact Us</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    Have questions or need assistance? Our support team is ready to help.
+                  </p>
+                  <div className="flex items-center space-x-4">
+                    <Button>
+                      <Phone className="h-4 w-4 mr-2" />
+                      Contact Support
+                    </Button>
+                    <Button variant="outline">
+                      Email Us
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
