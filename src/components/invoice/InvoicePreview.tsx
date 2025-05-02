@@ -52,9 +52,18 @@ const InvoicePreview = () => {
         className="border rounded-lg p-8 bg-white invoice-paper animate-fade-in"
       >
         <div className="mb-8 flex justify-between items-start">
-          <div>
-            <h1 className="text-2xl font-bold text-invoice-primary">INVOICE</h1>
-            <p className="text-sm text-gray-500"># {invoiceDetails.invoiceNumber}</p>
+          <div className="flex items-center gap-4">
+            {seller.logo && (
+              <img 
+                src={seller.logo} 
+                alt="Seller Logo" 
+                className="h-16 w-16 object-contain"
+              />
+            )}
+            <div>
+              <h1 className="text-2xl font-bold text-invoice-primary">INVOICE</h1>
+              <p className="text-sm text-gray-500"># {invoiceDetails.invoiceNumber}</p>
+            </div>
           </div>
           <div className="text-right">
             <div className="mb-2">

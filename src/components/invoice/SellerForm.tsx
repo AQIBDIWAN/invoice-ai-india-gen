@@ -3,19 +3,24 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Search } from "lucide-react";
+import { Search, Upload } from "lucide-react";
 import { Seller, useInvoice } from "@/contexts/InvoiceContext";
 import { fetchGSTDetails, validateGST } from "@/utils/gstUtils";
 import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 
 const SellerForm = () => {
   const { seller, setSeller } = useInvoice();
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+  const [sellerLogo, setSellerLogo] = useState<string | null>(() => {
+    // Check if logo exists in localStorage
+    return localStorage.getItem('sellerLogo');
+  });
+  const { toast: useToastFn } = useToast();
 
   const handleGSTSearch = async () => {
     if (!seller.gstNumber || !validateGST(seller.gstNumber)) {
-      toast({
+      useToastFn({
         title: "Invalid GST Number",
         description: "Please enter a valid 15-digit GST number",
         variant: "destructive"
@@ -35,13 +40,13 @@ const SellerForm = () => {
           state: details.state || prev.state,
           city: details.city || prev.city
         }));
-        toast({
+        useToastFn({
           title: "GST Details Found",
           description: "Seller details have been populated from GST database",
         });
       }
     } catch (error) {
-      toast({
+      useToastFn({
         title: "Error",
         description: "Failed to fetch GST details",
         variant: "destructive"
@@ -58,10 +63,49 @@ const SellerForm = () => {
       [name]: value
     }));
   };
+  
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const logoData = event.target?.result as string;
+        setSellerLogo(logoData);
+        localStorage.setItem('sellerLogo', logoData);
+        toast.success("Logo uploaded successfully");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="space-y-4 animate-fade-in">
-      <h2 className="text-lg font-semibold text-gray-800">Seller Information</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-lg font-semibold text-gray-800">Seller Information</h2>
+        
+        <div className="flex items-center gap-2">
+          {sellerLogo && (
+            <img 
+              src={sellerLogo} 
+              alt="Seller Logo" 
+              className="h-10 w-10 object-contain border rounded"
+            />
+          )}
+          <div className="relative">
+            <input 
+              type="file" 
+              id="seller-logo-upload" 
+              accept="image/*" 
+              onChange={handleLogoUpload}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <Button variant="outline" size="sm" className="relative z-0">
+              <Upload className="h-4 w-4 mr-2" />
+              {sellerLogo ? "Change Logo" : "Upload Logo"}
+            </Button>
+          </div>
+        </div>
+      </div>
       
       <div className="flex flex-col gap-4">
         <div className="flex flex-col md:flex-row gap-4">

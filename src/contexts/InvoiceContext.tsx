@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 export interface Product {
   id: string;
@@ -23,6 +22,7 @@ export interface Seller {
   pincode: string;
   email: string;
   phone: string;
+  logo?: string;
 }
 
 export interface Customer {
@@ -75,7 +75,8 @@ const defaultInvoiceContext: InvoiceContextType = {
     state: "",
     pincode: "",
     email: "",
-    phone: ""
+    phone: "",
+    logo: ""
   },
   setSeller: () => {},
   customer: {
@@ -127,8 +128,17 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
     state: "",
     pincode: "",
     email: "",
-    phone: ""
+    phone: "",
+    logo: ""
   });
+
+  // Load seller logo from localStorage
+  useEffect(() => {
+    const storedLogo = localStorage.getItem('sellerLogo');
+    if (storedLogo) {
+      setSeller(prev => ({ ...prev, logo: storedLogo }));
+    }
+  }, []);
 
   const [customer, setCustomer] = useState<Customer>({
     gstNumber: "",
@@ -216,6 +226,8 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
   };
 
   const resetInvoice = () => {
+    const storedLogo = localStorage.getItem('sellerLogo');
+    
     setSeller({
       gstNumber: "",
       name: "",
@@ -226,8 +238,10 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
       state: "",
       pincode: "",
       email: "",
-      phone: ""
+      phone: "",
+      logo: storedLogo || ""
     });
+    
     setCustomer({
       gstNumber: "",
       name: "",
@@ -239,6 +253,7 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
       email: "",
       phone: ""
     });
+    
     setProducts([
       {
         id: crypto.randomUUID(),
@@ -251,6 +266,7 @@ export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({ children })
         total: 0
       }
     ]);
+    
     setInvoiceDetails({
       invoiceNumber: `INV-${Date.now().toString().slice(-8)}`,
       issueDate: new Date().toISOString().slice(0, 10),
