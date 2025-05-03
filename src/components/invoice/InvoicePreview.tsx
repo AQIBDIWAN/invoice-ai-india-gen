@@ -35,18 +35,51 @@ const InvoicePreview = () => {
           <head>
             <title>Print Invoice</title>
             <style>
-              body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-              .invoice-paper { max-width: 800px; margin: 0 auto; }
-              table { width: 100%; border-collapse: collapse; }
-              th, td { padding: 8px; text-align: left; }
-              th { border-bottom: 1px solid #ddd; }
-              td { border-bottom: 1px solid #eee; }
+              body { 
+                font-family: Arial, sans-serif; 
+                margin: 0; 
+                padding: 20px; 
+                font-size: 12px; 
+              }
+              .invoice-paper { 
+                max-width: 800px; 
+                margin: 0 auto; 
+                page-break-inside: avoid; 
+              }
+              table { 
+                width: 100%; 
+                border-collapse: collapse; 
+              }
+              th, td { 
+                padding: 6px; 
+                text-align: left; 
+              }
+              th { 
+                border-bottom: 1px solid #ddd; 
+              }
+              td { 
+                border-bottom: 1px solid #eee; 
+              }
               .text-right { text-align: right; }
               .text-center { text-align: center; }
               .font-bold { font-weight: bold; }
               .text-gray-600 { color: #666; }
+              img { max-height: 50px; }
               @media print {
-                body { -webkit-print-color-adjust: exact; }
+                body { 
+                  -webkit-print-color-adjust: exact; 
+                  width: 100%;
+                  margin: 0;
+                  padding: 10px;
+                }
+                .invoice-paper {
+                  width: 100%;
+                  max-width: 100%;
+                }
+              }
+              @page {
+                size: A4;
+                margin: 0.5cm;
               }
             </style>
           </head>

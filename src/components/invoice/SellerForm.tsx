@@ -67,12 +67,34 @@ const SellerForm = () => {
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file size (max 1MB)
+      if (file.size > 1024 * 1024) {
+        toast.error("Logo file is too large. Maximum size is 1MB.");
+        return;
+      }
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error("Please select a valid image file.");
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onload = (event) => {
         const logoData = event.target?.result as string;
         setSellerLogo(logoData);
         localStorage.setItem('sellerLogo', logoData);
+        
+        // Also update the logo in the seller context
+        setSeller(prev => ({
+          ...prev,
+          logo: logoData
+        }));
+        
         toast.success("Logo uploaded successfully");
+      };
+      reader.onerror = () => {
+        toast.error("Failed to read the image file");
       };
       reader.readAsDataURL(file);
     }
@@ -97,9 +119,9 @@ const SellerForm = () => {
               id="seller-logo-upload" 
               accept="image/*" 
               onChange={handleLogoUpload}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
-            <Button variant="outline" size="sm" className="relative z-0">
+            <Button variant="outline" size="sm" className="relative">
               <Upload className="h-4 w-4 mr-2" />
               {sellerLogo ? "Change Logo" : "Upload Logo"}
             </Button>
