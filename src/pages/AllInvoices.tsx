@@ -46,17 +46,31 @@ const AllInvoices = () => {
   useEffect(() => {
     const storedInvoices = localStorage.getItem('invoices');
     if (storedInvoices) {
-      const parsedInvoices: InvoiceRecord[] = JSON.parse(storedInvoices);
-      setInvoices(parsedInvoices);
+      try {
+        const parsedData = JSON.parse(storedInvoices);
+        
+        // Validate that all invoices have proper status values
+        const validatedInvoices: InvoiceRecord[] = parsedData.map((invoice: any) => ({
+          ...invoice,
+          // Ensure status is either "paid" or "pending"
+          status: invoice.status === "paid" ? "paid" : "pending"
+        }));
+        
+        setInvoices(validatedInvoices);
+      } catch (error) {
+        console.error("Error parsing invoices:", error);
+        setInvoices([]);
+      }
     }
   }, []);
 
   const handleStatusChange = (invoiceId: string) => {
     const updatedInvoices = invoices.map(invoice => {
       if (invoice.id === invoiceId) {
+        const newStatus: "paid" | "pending" = invoice.status === 'paid' ? 'pending' : 'paid';
         return {
           ...invoice,
-          status: invoice.status === 'paid' ? 'pending' : 'paid'
+          status: newStatus
         };
       }
       return invoice;
