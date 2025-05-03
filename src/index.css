@@ -94,6 +94,19 @@
   .print-content {
     margin: 0;
     padding: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Force table to stay on one page */
+  table { page-break-inside: avoid !important; }
+  
+  /* Prevent breaks inside rows */
+  tr { page-break-inside: avoid !important; }
+  
+  /* Ensure the total section stays together */
+  .total-section, .footer-section {
+    page-break-inside: avoid !important;
   }
 }
 
@@ -187,13 +200,14 @@
 @media print {
   @page {
     size: A4;
-    margin: 5mm;
+    margin: 4mm;
   }
   
   .invoice-paper {
     box-shadow: none !important;
     break-inside: avoid !important;
     page-break-inside: avoid !important;
+    padding: 2mm !important;
   }
   
   .footer-section {
@@ -203,5 +217,17 @@
   
   .total-section {
     page-break-inside: avoid !important;
+  }
+
+  /* Reduce spacing to fit on one page */
+  p, div, h1, h2, h3, h4, h5, h6 {
+    margin-top: 0.1rem !important;
+    margin-bottom: 0.1rem !important;
+    padding-top: 0.1rem !important;
+    padding-bottom: 0.1rem !important;
+  }
+  
+  .space-y-1 > * + *, .space-y-2 > * + *, .space-y-3 > * + *, .space-y-4 > * + * {
+    margin-top: 0.1rem !important;
   }
 }

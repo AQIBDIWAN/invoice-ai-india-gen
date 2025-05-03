@@ -1,10 +1,39 @@
-
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { FileText, Bot, ChevronRight, CheckCircle, Award, Shield, Clock, Phone } from "lucide-react";
+import { FileText, Bot, ChevronRight, CheckCircle, Award, Shield, Clock, Phone, User, LogOut } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
+
+interface UserData {
+  username: string;
+  isLoggedIn: boolean;
+}
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState<UserData | null>(null);
+  const [sellerLogo, setSellerLogo] = useState<string | null>(null);
+
+  // Check if user is logged in on component mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const storedLogo = localStorage.getItem('sellerLogo');
+    
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    
+    if (storedLogo) {
+      setSellerLogo(storedLogo);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   const handleScrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -23,7 +52,15 @@ const LandingPage = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2">
-              <FileText className="h-6 w-6 text-invoice-primary" />
+              {sellerLogo ? (
+                <img 
+                  src={sellerLogo} 
+                  alt="Seller Logo" 
+                  className="h-8 w-8 object-contain"
+                />
+              ) : (
+                <FileText className="h-6 w-6 text-invoice-primary" />
+              )}
               <span className="font-bold text-xl text-invoice-dark">InvoiceAI</span>
             </Link>
             
@@ -49,9 +86,27 @@ const LandingPage = () => {
             </nav>
             
             <div className="flex items-center gap-3">
-              <Button variant="outline" asChild>
-                <Link to="/login">Login</Link>
-              </Button>
+              {user?.isLoggedIn ? (
+                <>
+                  {/* User info and logout */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium hidden sm:inline">
+                      {user.username}
+                    </span>
+                    <Button variant="outline" onClick={handleLogout}>
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Logout
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <Button variant="outline" asChild>
+                  <Link to="/login">
+                    <User className="h-4 w-4 mr-2" />
+                    Login
+                  </Link>
+                </Button>
+              )}
               
               <Button asChild>
                 <Link to="/register">Register</Link>

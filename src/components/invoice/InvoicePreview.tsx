@@ -37,13 +37,13 @@ const InvoicePreview = () => {
             <style>
               @page {
                 size: A4;
-                margin: 5mm;
+                margin: 4mm;
               }
               body { 
                 font-family: Arial, sans-serif; 
                 margin: 0; 
-                padding: 3mm;
-                font-size: 9px; 
+                padding: 2mm;
+                font-size: 8px; 
                 width: 100%;
                 max-width: 210mm;
                 height: 100%;
@@ -61,14 +61,14 @@ const InvoicePreview = () => {
                 table-layout: fixed;
               }
               th, td { 
-                padding: 2px; 
+                padding: 1px; 
                 text-align: left; 
                 overflow-wrap: break-word;
-                font-size: 8px;
+                font-size: 7px;
               }
               th { 
                 border-bottom: 1px solid #ddd; 
-                font-size: 8px;
+                font-size: 7px;
               }
               td { 
                 border-bottom: 1px solid #eee;
@@ -77,7 +77,7 @@ const InvoicePreview = () => {
               .text-center { text-align: center; }
               .font-bold { font-weight: bold; }
               .text-gray-600 { color: #666; }
-              img { max-height: 40px; }
+              img { max-height: 30px; }
               .product-table th:nth-child(1) { width: 25%; }
               .product-table th:nth-child(2) { width: 10%; }
               .product-table th:nth-child(3) { width: 8%; }
@@ -86,35 +86,43 @@ const InvoicePreview = () => {
               .product-table th:nth-child(6) { width: 10%; }
               .product-table th:nth-child(7) { width: 15%; }
               
-              .compact-text { font-size: 8px; }
+              .compact-text { font-size: 7px; }
               .total-section {
                 width: 100%;
-                max-width: 300px;
+                max-width: 250px;
                 margin-left: auto;
-                page-break-inside: avoid;
-                break-inside: avoid;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
               }
               .footer-section {
-                margin-top: 5px;
-                page-break-inside: avoid;
-                break-inside: avoid;
-                font-size: 8px;
+                margin-top: 4px;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                font-size: 7px;
               }
               @media print {
                 body { 
                   -webkit-print-color-adjust: exact; 
                   width: 100%;
                   margin: 0;
-                  padding: 2mm;
+                  padding: 1mm;
                 }
                 .invoice-paper {
                   width: 100%;
                   max-width: 100%;
                   break-inside: avoid;
                 }
-                .header-section { margin-bottom: 5px; }
-                .bill-section { margin-bottom: 5px; }
-                .product-section { margin-bottom: 5px; }
+                .header-section { margin-bottom: 3px; }
+                .bill-section { margin-bottom: 3px; }
+                .product-section { margin-bottom: 3px; }
+                /* All sections should avoid page breaks */
+                .header-section, .bill-section, .product-section, .total-section, .footer-section {
+                  page-break-inside: avoid !important;
+                }
+                /* Reduce spacing */
+                .mb-6, .mb-8 { margin-bottom: 2px !important; }
+                .py-2 { padding-top: 1px !important; padding-bottom: 1px !important; }
+                .space-y-2 { margin-top: 1px !important; }
               }
             </style>
           </head>
