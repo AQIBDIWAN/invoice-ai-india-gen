@@ -111,6 +111,14 @@
   animation: slideUp 0.3s ease-out;
 }
 
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -119,6 +127,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -163,5 +180,28 @@
 @media (max-width: 768px) {
   main {
     padding: 1rem;
+  }
+}
+
+/* Print specific styles for invoice */
+@media print {
+  @page {
+    size: A4;
+    margin: 5mm;
+  }
+  
+  .invoice-paper {
+    box-shadow: none !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  
+  .footer-section {
+    position: relative;
+    page-break-inside: avoid !important;
+  }
+  
+  .total-section {
+    page-break-inside: avoid !important;
   }
 }

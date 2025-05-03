@@ -35,16 +35,25 @@ const InvoicePreview = () => {
           <head>
             <title>Print Invoice</title>
             <style>
+              @page {
+                size: A4;
+                margin: 5mm;
+              }
               body { 
                 font-family: Arial, sans-serif; 
                 margin: 0; 
-                padding: 10px; 
-                font-size: 10px; 
+                padding: 3mm;
+                font-size: 9px; 
+                width: 100%;
+                max-width: 210mm;
+                height: 100%;
               }
               .invoice-paper { 
-                max-width: 100%; 
-                margin: 0 auto; 
-                page-break-inside: avoid; 
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                page-break-inside: avoid;
+                break-inside: avoid;
               }
               table { 
                 width: 100%; 
@@ -52,17 +61,17 @@ const InvoicePreview = () => {
                 table-layout: fixed;
               }
               th, td { 
-                padding: 4px; 
+                padding: 2px; 
                 text-align: left; 
                 overflow-wrap: break-word;
+                font-size: 8px;
               }
               th { 
                 border-bottom: 1px solid #ddd; 
-                font-size: 10px;
+                font-size: 8px;
               }
               td { 
-                border-bottom: 1px solid #eee; 
-                font-size: 10px;
+                border-bottom: 1px solid #eee;
               }
               .text-right { text-align: right; }
               .text-center { text-align: center; }
@@ -77,32 +86,35 @@ const InvoicePreview = () => {
               .product-table th:nth-child(6) { width: 10%; }
               .product-table th:nth-child(7) { width: 15%; }
               
-              .compact-text { font-size: 9px; }
+              .compact-text { font-size: 8px; }
               .total-section {
                 width: 100%;
                 max-width: 300px;
                 margin-left: auto;
                 page-break-inside: avoid;
+                break-inside: avoid;
+              }
+              .footer-section {
+                margin-top: 5px;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                font-size: 8px;
               }
               @media print {
                 body { 
                   -webkit-print-color-adjust: exact; 
                   width: 100%;
                   margin: 0;
-                  padding: 5px;
+                  padding: 2mm;
                 }
                 .invoice-paper {
                   width: 100%;
                   max-width: 100%;
                   break-inside: avoid;
                 }
-                .header-section { margin-bottom: 10px; }
-                .bill-section { margin-bottom: 10px; }
-                .product-section { margin-bottom: 10px; }
-              }
-              @page {
-                size: A4;
-                margin: 0.3cm;
+                .header-section { margin-bottom: 5px; }
+                .bill-section { margin-bottom: 5px; }
+                .product-section { margin-bottom: 5px; }
               }
             </style>
           </head>
@@ -243,7 +255,7 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="flex justify-end mb-6 sm:mb-8">
+        <div className="flex justify-end mb-4 sm:mb-6">
           <div className="w-full sm:w-1/2 total-section">
             <div className="space-y-2">
               <div className="flex justify-between">
@@ -266,19 +278,19 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="border-t pt-3">
-          <div className="mb-4">
+        <div className="border-t pt-2 footer-section">
+          <div className="mb-2">
             <p className="text-xs sm:text-sm italic compact-text">Amount in words: <span className="font-medium">{numberToWords(grandTotal)}</span></p>
           </div>
           
           {invoiceDetails.description && (
-            <div className="mb-6">
+            <div className="mb-3">
               <h4 className="text-xs sm:text-sm font-semibold mb-1">Notes:</h4>
               <p className="text-xs sm:text-sm text-gray-600 compact-text">{invoiceDetails.description}</p>
             </div>
           )}
           
-          <div className="mt-6 sm:mt-8 text-center text-xs text-gray-500 compact-text">
+          <div className="mt-3 sm:mt-4 text-center text-xs text-gray-500 compact-text">
             <p>This is a computer generated invoice and does not require a physical signature.</p>
           </div>
         </div>

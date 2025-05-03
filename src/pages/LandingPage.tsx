@@ -1,9 +1,22 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FileText, Bot, ChevronRight, CheckCircle, Award, Shield, Clock, Phone } from "lucide-react";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleTryForFree = () => {
+    navigate("/create-invoice");
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b">
@@ -15,15 +28,24 @@ const LandingPage = () => {
             </Link>
             
             <nav className="hidden md:flex items-center gap-6">
-              <Link to="#features" className="text-gray-600 hover:text-invoice-primary transition-colors">
+              <button 
+                onClick={() => handleScrollToSection('features')} 
+                className="text-gray-600 hover:text-invoice-primary transition-colors"
+              >
                 Features
-              </Link>
-              <Link to="#pricing" className="text-gray-600 hover:text-invoice-primary transition-colors">
+              </button>
+              <button 
+                onClick={() => handleScrollToSection('pricing')} 
+                className="text-gray-600 hover:text-invoice-primary transition-colors"
+              >
                 Pricing
-              </Link>
-              <Link to="#about" className="text-gray-600 hover:text-invoice-primary transition-colors">
+              </button>
+              <button 
+                onClick={() => handleScrollToSection('about')} 
+                className="text-gray-600 hover:text-invoice-primary transition-colors"
+              >
                 About
-              </Link>
+              </button>
             </nav>
             
             <div className="flex items-center gap-3">
@@ -464,10 +486,13 @@ const LandingPage = () => {
                   Sign Up Now
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent" asChild>
-                <Link to="/create-invoice">
-                  Try for Free
-                </Link>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="bg-transparent"
+                onClick={handleTryForFree}
+              >
+                Try for Free
               </Button>
             </div>
           </div>
