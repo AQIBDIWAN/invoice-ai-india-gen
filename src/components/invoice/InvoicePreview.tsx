@@ -22,14 +22,46 @@ const InvoicePreview = () => {
   const isMobile = useIsMobile();
   
   const handlePrint = () => {
-    const printContent = document.getElementById('invoice-print');
-    const originalContents = document.body.innerHTML;
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank');
     
-    if (printContent) {
-      document.body.innerHTML = printContent.innerHTML;
-      window.print();
-      document.body.innerHTML = originalContents;
-      window.location.reload();
+    if (printWindow && invoiceRef.current) {
+      // Get the content to print
+      const content = invoiceRef.current.innerHTML;
+      
+      // Add necessary styles
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Invoice</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+              .invoice-paper { max-width: 800px; margin: 0 auto; }
+              table { width: 100%; border-collapse: collapse; }
+              th, td { padding: 8px; text-align: left; }
+              th { border-bottom: 1px solid #ddd; }
+              td { border-bottom: 1px solid #eee; }
+              .text-right { text-align: right; }
+              .text-center { text-align: center; }
+              .font-bold { font-weight: bold; }
+              .text-gray-600 { color: #666; }
+              @media print {
+                body { -webkit-print-color-adjust: exact; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="invoice-paper">
+              ${content}
+            </div>
+            <script>
+              window.onload = function() { window.print(); window.setTimeout(function() { window.close(); }, 500); }
+            </script>
+          </body>
+        </html>
+      `);
+      
+      printWindow.document.close();
     }
   };
   

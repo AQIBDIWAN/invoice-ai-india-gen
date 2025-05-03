@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
-import { FileText, Plus, User, LogOut, Upload } from "lucide-react";
+import { FileText, Plus, User, LogOut } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 
 interface UserData {
@@ -36,20 +36,6 @@ const Navbar = () => {
     navigate("/login");
   };
   
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const logoData = event.target?.result as string;
-        setSellerLogo(logoData);
-        localStorage.setItem('sellerLogo', logoData);
-        toast.success("Logo uploaded successfully");
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="container mx-auto px-4 py-4">
@@ -79,21 +65,6 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             {user?.isLoggedIn ? (
               <>
-                {/* Logo upload button */}
-                <div className="relative">
-                  <input 
-                    type="file" 
-                    id="logo-upload" 
-                    accept="image/*" 
-                    onChange={handleLogoUpload}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  />
-                  <Button variant="outline" size="sm" className="relative z-0">
-                    <Upload className="h-4 w-4 mr-2" />
-                    Upload Logo
-                  </Button>
-                </div>
-                
                 {/* User info and logout */}
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium hidden sm:inline">
