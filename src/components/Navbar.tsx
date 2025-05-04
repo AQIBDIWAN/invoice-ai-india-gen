@@ -50,7 +50,7 @@ const Navbar = () => {
             ) : (
               <FileText className="h-6 w-6 text-invoice-primary" />
             )}
-            <span className="font-bold text-xl text-invoice-dark">InvoiceAI</span>
+            <span className="font-bold text-xl text-invoice-dark truncate max-w-[150px]">InvoiceAI</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-6">
@@ -67,12 +67,12 @@ const Navbar = () => {
               <>
                 {/* User info and logout */}
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium hidden sm:inline">
+                  <span className="text-sm font-medium hidden sm:inline truncate max-w-[120px]">
                     {user.username}
                   </span>
                   <Button variant="outline" onClick={handleLogout} className="text-xs md:text-sm px-2 md:px-3">
                     <LogOut className="h-4 w-4 mr-1 md:mr-2" />
-                    Logout
+                    <span className="hidden xs:inline">Logout</span>
                   </Button>
                 </div>
               </>

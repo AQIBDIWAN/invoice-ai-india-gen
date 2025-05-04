@@ -5,6 +5,8 @@ import { formatIndianCurrency, numberToWords } from '@/utils/gstUtils';
 import { useInvoice } from '@/contexts/InvoiceContext';
 import { Printer } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '@/components/ui/sonner';
 
 const InvoicePreview = () => {
   const { 
@@ -20,6 +22,7 @@ const InvoicePreview = () => {
   
   const invoiceRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   
   const handlePrint = () => {
     // Create a new window for printing
@@ -100,9 +103,13 @@ const InvoicePreview = () => {
                 margin-bottom: 1px;
                 width: 100%;
               }
+              .summary-label {
+                text-align: left;
+              }
               .summary-value {
                 text-align: right;
-                min-width: 50px;
+                min-width: 60px;
+                padding-left: 10px;
               }
               .footer-section {
                 margin-top: 4px;
@@ -140,6 +147,8 @@ const InvoicePreview = () => {
                 /* Fix summary alignment */
                 .summary-row {
                   margin-bottom: 0px;
+                  display: flex;
+                  justify-content: flex-end;
                 }
                 
                 /* Scale down content if needed */
@@ -155,13 +164,65 @@ const InvoicePreview = () => {
               ${content}
             </div>
             <script>
-              window.onload = function() { window.print(); window.setTimeout(function() { window.close(); }, 500); }
+              window.onload = function() { 
+                window.print(); 
+                window.setTimeout(function() { 
+                  window.close(); 
+                }, 500); 
+              }
             </script>
           </body>
         </html>
       `);
       
       printWindow.document.close();
+      
+      // Save the invoice to localStorage if not already there
+      saveInvoiceIfNeeded();
+      
+      // Show success message
+      toast.success("Invoice printed successfully");
+    }
+  };
+  
+  const saveInvoiceIfNeeded = () => {
+    // Check if this is a new invoice
+    if (!invoiceDetails.invoiceNumber || !customer.businessName) return;
+    
+    const invoiceData = {
+      id: `inv-${Date.now()}`,
+      number: invoiceDetails.invoiceNumber,
+      customer: customer.businessName,
+      amount: calculateGrandTotal(),
+      date: invoiceDetails.issueDate,
+      status: invoiceDetails.isPaid ? "paid" : "pending",
+      customerDetails: {
+        businessName: customer.businessName,
+        gstNumber: customer.gstNumber,
+      }
+    };
+    
+    // Get existing invoices
+    const existingInvoicesStr = localStorage.getItem('invoices');
+    let invoices = [];
+    
+    if (existingInvoicesStr) {
+      try {
+        invoices = JSON.parse(existingInvoicesStr);
+      } catch (e) {
+        console.error("Failed to parse invoices from localStorage");
+      }
+    }
+    
+    // Check if invoice with same number already exists
+    const invoiceExists = invoices.some((inv: any) => inv.number === invoiceData.number);
+    
+    if (!invoiceExists) {
+      // Add the new invoice
+      invoices.push(invoiceData);
+      
+      // Save back to localStorage
+      localStorage.setItem('invoices', JSON.stringify(invoices));
     }
   };
   
@@ -291,19 +352,19 @@ const InvoicePreview = () => {
           <div className="w-full sm:w-1/2 md:w-1/3 total-section">
             <div className="space-y-1 text-right">
               <div className="summary-row">
-                <span className="text-gray-600">Subtotal:</span>
+                <span className="text-gray-600 summary-label">Subtotal:</span>
                 <span className="summary-value">{formatIndianCurrency(subTotal)}</span>
               </div>
               <div className="summary-row">
-                <span className="text-gray-600">Discount:</span>
+                <span className="text-gray-600 summary-label">Discount:</span>
                 <span className="summary-value">{formatIndianCurrency(totalDiscount)}</span>
               </div>
               <div className="summary-row">
-                <span className="text-gray-600">GST:</span>
+                <span className="text-gray-600 summary-label">GST:</span>
                 <span className="summary-value">{formatIndianCurrency(totalTax)}</span>
               </div>
               <div className="border-t pt-1 summary-row font-bold">
-                <span>Total:</span>
+                <span className="summary-label">Total:</span>
                 <span className="summary-value">{formatIndianCurrency(grandTotal)}</span>
               </div>
             </div>

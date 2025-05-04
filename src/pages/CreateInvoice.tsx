@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Bot, Printer } from "lucide-react";
+import { FileText, Bot, ArrowLeft } from "lucide-react";
 import SellerForm from "@/components/invoice/SellerForm";
 import CustomerForm from "@/components/invoice/CustomerForm";
 import ProductsForm from "@/components/invoice/ProductsForm";
@@ -13,26 +12,28 @@ import AIInvoiceGenerator from "@/components/invoice/AIInvoiceGenerator";
 import InvoiceSummary from "@/components/invoice/InvoiceSummary";
 import { useInvoice } from "@/contexts/InvoiceContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useNavigate } from "react-router-dom";
 
 const CreateInvoice = () => {
   const [activeTab, setActiveTab] = useState<string>("manual");
   const { resetInvoice } = useInvoice();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
+          <Button variant="ghost" className="mb-2 -ml-2" onClick={() => navigate("/dashboard")}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Dashboard
+          </Button>
           <h1 className="text-2xl font-bold">Create Invoice</h1>
           <p className="text-gray-500">Fill in the details to generate an invoice</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={resetInvoice}>
             Reset
-          </Button>
-          <Button onClick={() => window.print()}>
-            <Printer className="h-4 w-4 mr-2" />
-            Print
           </Button>
         </div>
       </div>
