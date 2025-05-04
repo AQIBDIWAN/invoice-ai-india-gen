@@ -94,6 +94,16 @@ const InvoicePreview = () => {
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
               }
+              .summary-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1px;
+                width: 100%;
+              }
+              .summary-value {
+                text-align: right;
+                min-width: 50px;
+              }
               .footer-section {
                 margin-top: 4px;
                 page-break-inside: avoid !important;
@@ -106,28 +116,42 @@ const InvoicePreview = () => {
                   width: 100%;
                   margin: 0;
                   padding: 1mm;
+                  font-size: 7px;
                 }
                 .invoice-paper {
                   width: 100%;
                   max-width: 100%;
                   break-inside: avoid;
                 }
-                .header-section { margin-bottom: 3px; }
-                .bill-section { margin-bottom: 3px; }
-                .product-section { margin-bottom: 3px; }
+                .header-section { margin-bottom: 2px; }
+                .bill-section { margin-bottom: 2px; }
+                .product-section { margin-bottom: 2px; }
+                
                 /* All sections should avoid page breaks */
                 .header-section, .bill-section, .product-section, .total-section, .footer-section {
                   page-break-inside: avoid !important;
                 }
+                
                 /* Reduce spacing */
                 .mb-6, .mb-8 { margin-bottom: 2px !important; }
-                .py-2 { padding-top: 1px !important; padding-bottom: 1px !important; }
+                .py-2 { padding-top: 0px !important; padding-bottom: 0px !important; }
                 .space-y-2 { margin-top: 1px !important; }
+                
+                /* Fix summary alignment */
+                .summary-row {
+                  margin-bottom: 0px;
+                }
+                
+                /* Scale down content if needed */
+                .scale-down {
+                  transform: scale(0.95);
+                  transform-origin: top left;
+                }
               }
             </style>
           </head>
           <body>
-            <div class="invoice-paper">
+            <div class="invoice-paper scale-down">
               ${content}
             </div>
             <script>
@@ -224,7 +248,7 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="mb-6 sm:mb-8 overflow-x-auto product-section">
+        <div className="mb-4 sm:mb-6 overflow-x-auto product-section">
           <div className="min-w-[600px]">
             <table className="w-full text-xs sm:text-sm product-table">
               <thead>
@@ -263,24 +287,24 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="flex justify-end mb-4 sm:mb-6">
-          <div className="w-full sm:w-1/2 total-section">
-            <div className="space-y-2">
-              <div className="flex justify-between">
+        <div className="flex justify-end mb-2">
+          <div className="w-full sm:w-1/2 md:w-1/3 total-section">
+            <div className="space-y-1 text-right">
+              <div className="summary-row">
                 <span className="text-gray-600">Subtotal:</span>
-                <span>{formatIndianCurrency(subTotal)}</span>
+                <span className="summary-value">{formatIndianCurrency(subTotal)}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="summary-row">
                 <span className="text-gray-600">Discount:</span>
-                <span>{formatIndianCurrency(totalDiscount)}</span>
+                <span className="summary-value">{formatIndianCurrency(totalDiscount)}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="summary-row">
                 <span className="text-gray-600">GST:</span>
-                <span>{formatIndianCurrency(totalTax)}</span>
+                <span className="summary-value">{formatIndianCurrency(totalTax)}</span>
               </div>
-              <div className="border-t pt-2 flex justify-between font-bold">
+              <div className="border-t pt-1 summary-row font-bold">
                 <span>Total:</span>
-                <span>{formatIndianCurrency(grandTotal)}</span>
+                <span className="summary-value">{formatIndianCurrency(grandTotal)}</span>
               </div>
             </div>
           </div>
