@@ -6,6 +6,31 @@ import { Trash2, Plus } from "lucide-react";
 import { useInvoice } from "@/contexts/InvoiceContext";
 import { formatIndianCurrency } from "@/utils/gstUtils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue, 
+} from "../ui/select";
+
+const unitOptions = [
+  { value: "Nos", label: "Nos" },
+  { value: "Kg", label: "Kilogram (Kg)" },
+  { value: "g", label: "Gram (g)" },
+  { value: "L", label: "Liter (L)" },
+  { value: "ml", label: "Milliliter (ml)" },
+  { value: "m", label: "Meter (m)" },
+  { value: "cm", label: "Centimeter (cm)" },
+  { value: "mm", label: "Millimeter (mm)" },
+  { value: "Pc", label: "Piece (Pc)" },
+  { value: "Box", label: "Box" },
+  { value: "Pkg", label: "Package (Pkg)" },
+  { value: "Dz", label: "Dozen (Dz)" },
+  { value: "Hr", label: "Hour (Hr)" },
+  { value: "Day", label: "Day" },
+  { value: "Set", label: "Set" },
+];
 
 const ProductsForm = () => {
   const { products, setProducts, addProduct, removeProduct } = useInvoice();
@@ -55,14 +80,14 @@ const ProductsForm = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Item</TableHead>
-                <TableHead>Unit</TableHead>
-                <TableHead>Qty</TableHead>
-                <TableHead>Unit Price</TableHead>
-                <TableHead>Discount %</TableHead>
-                <TableHead>GST %</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead></TableHead>
+                <TableHead className="w-[30%]">Item</TableHead>
+                <TableHead className="w-[12%]">Unit</TableHead>
+                <TableHead className="w-[8%]">Qty</TableHead>
+                <TableHead className="w-[12%]">Unit Price</TableHead>
+                <TableHead className="w-[10%]">Discount %</TableHead>
+                <TableHead className="w-[8%]">GST %</TableHead>
+                <TableHead className="w-[12%]">Total</TableHead>
+                <TableHead className="w-[8%]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -73,15 +98,25 @@ const ProductsForm = () => {
                       value={product.name}
                       onChange={(e) => handleChange(product.id, 'name', e.target.value)}
                       placeholder="Item name"
+                      className="text-base"
                     />
                   </TableCell>
                   <TableCell>
-                    <Input
-                      value={product.unit}
-                      onChange={(e) => handleChange(product.id, 'unit', e.target.value)}
-                      placeholder="Unit"
-                      className="w-16 md:w-20"
-                    />
+                    <Select 
+                      value={product.unit} 
+                      onValueChange={(value) => handleChange(product.id, 'unit', value)}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Unit" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {unitOptions.map(option => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </TableCell>
                   <TableCell>
                     <Input
@@ -89,7 +124,7 @@ const ProductsForm = () => {
                       value={product.quantity}
                       onChange={(e) => handleChange(product.id, 'quantity', Number(e.target.value))}
                       min="1"
-                      className="w-16 md:w-20"
+                      className="w-16 md:w-20 text-base"
                     />
                   </TableCell>
                   <TableCell>
@@ -98,7 +133,7 @@ const ProductsForm = () => {
                       value={product.unitPrice}
                       onChange={(e) => handleChange(product.id, 'unitPrice', Number(e.target.value))}
                       min="0"
-                      className="w-20 md:w-28"
+                      className="w-20 md:w-28 text-base"
                     />
                   </TableCell>
                   <TableCell>
@@ -108,7 +143,7 @@ const ProductsForm = () => {
                       onChange={(e) => handleChange(product.id, 'discountRate', Number(e.target.value))}
                       min="0"
                       max="100"
-                      className="w-16 md:w-20"
+                      className="w-16 md:w-20 text-base"
                     />
                   </TableCell>
                   <TableCell>
@@ -117,10 +152,10 @@ const ProductsForm = () => {
                       value={product.tax}
                       onChange={(e) => handleChange(product.id, 'tax', Number(e.target.value))}
                       min="0"
-                      className="w-16 md:w-20"
+                      className="w-16 md:w-20 text-base"
                     />
                   </TableCell>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium text-base">
                     {formatIndianCurrency(product.total || 0)}
                   </TableCell>
                   <TableCell>
@@ -161,17 +196,28 @@ const ProductsForm = () => {
                   value={product.name}
                   onChange={(e) => handleChange(product.id, 'name', e.target.value)}
                   placeholder="Item name"
+                  className="text-base"
                 />
               </div>
               
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <p className="text-xs font-medium mb-1">Unit</p>
-                  <Input
-                    value={product.unit}
-                    onChange={(e) => handleChange(product.id, 'unit', e.target.value)}
-                    placeholder="Unit"
-                  />
+                  <Select 
+                    value={product.unit} 
+                    onValueChange={(value) => handleChange(product.id, 'unit', value)}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Unit" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {unitOptions.map(option => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
                   <p className="text-xs font-medium mb-1">Quantity</p>
@@ -180,6 +226,7 @@ const ProductsForm = () => {
                     value={product.quantity}
                     onChange={(e) => handleChange(product.id, 'quantity', Number(e.target.value))}
                     min="1"
+                    className="text-base"
                   />
                 </div>
               </div>
@@ -192,6 +239,7 @@ const ProductsForm = () => {
                     value={product.unitPrice}
                     onChange={(e) => handleChange(product.id, 'unitPrice', Number(e.target.value))}
                     min="0"
+                    className="text-base"
                   />
                 </div>
                 <div>
@@ -202,6 +250,7 @@ const ProductsForm = () => {
                     onChange={(e) => handleChange(product.id, 'discountRate', Number(e.target.value))}
                     min="0"
                     max="100"
+                    className="text-base"
                   />
                 </div>
               </div>
@@ -214,11 +263,12 @@ const ProductsForm = () => {
                     value={product.tax}
                     onChange={(e) => handleChange(product.id, 'tax', Number(e.target.value))}
                     min="0"
+                    className="text-base"
                   />
                 </div>
                 <div>
                   <p className="text-xs font-medium mb-1">Total</p>
-                  <p className="border rounded-md p-2 bg-gray-50 font-medium">
+                  <p className="border rounded-md p-2 bg-gray-50 font-medium text-base">
                     {formatIndianCurrency(product.total || 0)}
                   </p>
                 </div>

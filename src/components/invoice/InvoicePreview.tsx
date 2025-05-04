@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { Button } from '../ui/button';
 import { formatIndianCurrency, numberToWords } from '@/utils/gstUtils';
@@ -40,20 +39,20 @@ const InvoicePreview = () => {
             <style>
               @page {
                 size: A4;
-                margin: 4mm;
+                margin: 5mm;
               }
               body { 
                 font-family: Arial, sans-serif; 
                 margin: 0; 
-                padding: 2mm;
-                font-size: 10px; 
+                padding: 5mm;
+                font-size: 12px; 
                 width: 100%;
                 max-width: 210mm;
                 height: 100%;
               }
               .invoice-paper { 
                 width: 100%;
-                margin: 0;
+                margin: 0 auto;
                 padding: 0;
                 page-break-inside: avoid;
                 break-inside: avoid;
@@ -62,16 +61,17 @@ const InvoicePreview = () => {
                 width: 100%; 
                 border-collapse: collapse; 
                 table-layout: fixed;
+                margin-bottom: 10px;
               }
               th, td { 
-                padding: 2px 4px; 
+                padding: 4px 5px; 
                 text-align: left; 
                 overflow-wrap: break-word;
-                font-size: 9px;
+                font-size: 11px;
               }
               th { 
                 border-bottom: 1px solid #ddd; 
-                font-size: 9px;
+                font-size: 11px;
                 font-weight: bold;
               }
               td { 
@@ -81,7 +81,7 @@ const InvoicePreview = () => {
               .text-center { text-align: center; }
               .font-bold { font-weight: bold; }
               .text-gray-600 { color: #666; }
-              img { max-height: 40px; }
+              img { max-height: 60px; }
               .product-table th:nth-child(1) { width: 25%; }
               .product-table th:nth-child(2) { width: 10%; }
               .product-table th:nth-child(3) { width: 8%; }
@@ -90,10 +90,9 @@ const InvoicePreview = () => {
               .product-table th:nth-child(6) { width: 10%; }
               .product-table th:nth-child(7) { width: 15%; }
               
-              .compact-text { font-size: 9px; }
               .total-section {
                 width: 100%;
-                max-width: 250px;
+                max-width: 300px;
                 margin-left: auto;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
@@ -101,34 +100,33 @@ const InvoicePreview = () => {
               .summary-row {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 2px;
+                margin-bottom: 5px;
                 width: 100%;
               }
               .summary-label {
                 text-align: left;
-                font-size: 9px;
+                font-size: 11px;
               }
               .summary-value {
                 text-align: right;
-                min-width: 80px;
-                padding-left: 10px;
-                font-size: 9px;
+                min-width: 100px;
+                padding-left: 15px;
+                font-size: 11px;
                 font-weight: bold;
               }
               .footer-section {
-                margin-top: 8px;
+                margin-top: 10px;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
-                font-size: 9px;
+                font-size: 11px;
               }
               @media print {
                 body { 
                   -webkit-print-color-adjust: exact; 
                   width: 100%;
                   margin: 0;
-                  padding: 1mm;
-                  font-size: 9px;
-                  transform: scale(1);
+                  padding: 5mm;
+                  font-size: 11px;
                   transform-origin: top center;
                 }
                 .invoice-paper {
@@ -136,9 +134,9 @@ const InvoicePreview = () => {
                   max-width: 100%;
                   break-inside: avoid;
                 }
-                .header-section { margin-bottom: 4px; }
-                .bill-section { margin-bottom: 4px; }
-                .product-section { margin-bottom: 4px; }
+                .header-section { margin-bottom: 8px; }
+                .bill-section { margin-bottom: 8px; }
+                .product-section { margin-bottom: 8px; }
                 
                 /* All sections should avoid page breaks */
                 .header-section, .bill-section, .product-section, .total-section, .footer-section {
@@ -146,13 +144,13 @@ const InvoicePreview = () => {
                 }
                 
                 /* Reduce spacing */
-                .mb-6, .mb-8 { margin-bottom: 4px !important; }
-                .py-2 { padding-top: 2px !important; padding-bottom: 2px !important; }
-                .space-y-2 { margin-top: 2px !important; }
+                .mb-6, .mb-8 { margin-bottom: 6px !important; }
+                .py-2 { padding-top: 4px !important; padding-bottom: 4px !important; }
+                .space-y-2 { margin-top: 4px !important; }
                 
                 /* Fix summary alignment */
                 .summary-row {
-                  margin-bottom: 2px;
+                  margin-bottom: 4px;
                   display: flex;
                   justify-content: flex-end;
                 }
@@ -160,29 +158,42 @@ const InvoicePreview = () => {
                 /* Ensure good visibility for summary values */
                 .summary-value {
                   font-weight: bold;
-                  min-width: 80px;
+                  min-width: 100px;
                 }
                 
                 /* Headers and business name should be more visible */
                 h1, h2, h3, .business-name {
                   font-weight: bold;
-                  margin: 1px 0;
+                  margin: 2px 0;
                 }
                 
                 .business-name {
-                  font-size: 12px;
-                  margin-bottom: 2px;
+                  font-size: 14px;
+                  margin-bottom: 4px;
                 }
                 
                 /* Grand total needs to stand out */
                 .grand-total {
-                  font-size: 10px;
+                  font-size: 13px;
                   font-weight: bold;
                 }
                 
                 /* Product table needs good spacing */
                 .product-table td, .product-table th {
-                  padding: 2px 4px;
+                  padding: 4px 5px;
+                  font-size: 11px;
+                }
+                
+                /* Ensure table headers are bold and visible */
+                .product-table th {
+                  font-weight: bold;
+                  background-color: #f9fafb !important;
+                  color: #111827 !important;
+                }
+                
+                /* Make sure totals are right-aligned and visible */
+                .text-right, .summary-value, td:last-child {
+                  text-align: right !important;
                 }
               }
             </style>
@@ -361,13 +372,13 @@ const InvoicePreview = () => {
                   
                   return (
                     <tr key={product.id} className="border-b border-gray-200">
-                      <td className="py-2">{product.name}</td>
+                      <td className="py-2 font-medium">{product.name}</td>
                       <td className="py-2 text-center">{product.unit}</td>
                       <td className="py-2 text-center">{product.quantity}</td>
                       <td className="py-2 text-right">{formatIndianCurrency(product.unitPrice)}</td>
                       <td className="py-2 text-right">{product.discountRate}%</td>
                       <td className="py-2 text-right">{product.tax}%</td>
-                      <td className="py-2 text-right">{formatIndianCurrency(total)}</td>
+                      <td className="py-2 text-right font-medium">{formatIndianCurrency(total)}</td>
                     </tr>
                   );
                 })}
