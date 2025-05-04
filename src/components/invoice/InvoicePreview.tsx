@@ -46,7 +46,7 @@ const InvoicePreview = () => {
                 font-family: Arial, sans-serif; 
                 margin: 0; 
                 padding: 2mm;
-                font-size: 8px; 
+                font-size: 10px; 
                 width: 100%;
                 max-width: 210mm;
                 height: 100%;
@@ -64,14 +64,15 @@ const InvoicePreview = () => {
                 table-layout: fixed;
               }
               th, td { 
-                padding: 1px; 
+                padding: 2px 4px; 
                 text-align: left; 
                 overflow-wrap: break-word;
-                font-size: 7px;
+                font-size: 9px;
               }
               th { 
                 border-bottom: 1px solid #ddd; 
-                font-size: 7px;
+                font-size: 9px;
+                font-weight: bold;
               }
               td { 
                 border-bottom: 1px solid #eee;
@@ -80,7 +81,7 @@ const InvoicePreview = () => {
               .text-center { text-align: center; }
               .font-bold { font-weight: bold; }
               .text-gray-600 { color: #666; }
-              img { max-height: 30px; }
+              img { max-height: 40px; }
               .product-table th:nth-child(1) { width: 25%; }
               .product-table th:nth-child(2) { width: 10%; }
               .product-table th:nth-child(3) { width: 8%; }
@@ -89,7 +90,7 @@ const InvoicePreview = () => {
               .product-table th:nth-child(6) { width: 10%; }
               .product-table th:nth-child(7) { width: 15%; }
               
-              .compact-text { font-size: 7px; }
+              .compact-text { font-size: 9px; }
               .total-section {
                 width: 100%;
                 max-width: 250px;
@@ -100,22 +101,25 @@ const InvoicePreview = () => {
               .summary-row {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 1px;
+                margin-bottom: 2px;
                 width: 100%;
               }
               .summary-label {
                 text-align: left;
+                font-size: 9px;
               }
               .summary-value {
                 text-align: right;
-                min-width: 60px;
+                min-width: 80px;
                 padding-left: 10px;
+                font-size: 9px;
+                font-weight: bold;
               }
               .footer-section {
-                margin-top: 4px;
+                margin-top: 8px;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
-                font-size: 7px;
+                font-size: 9px;
               }
               @media print {
                 body { 
@@ -123,16 +127,18 @@ const InvoicePreview = () => {
                   width: 100%;
                   margin: 0;
                   padding: 1mm;
-                  font-size: 7px;
+                  font-size: 9px;
+                  transform: scale(1);
+                  transform-origin: top center;
                 }
                 .invoice-paper {
                   width: 100%;
                   max-width: 100%;
                   break-inside: avoid;
                 }
-                .header-section { margin-bottom: 2px; }
-                .bill-section { margin-bottom: 2px; }
-                .product-section { margin-bottom: 2px; }
+                .header-section { margin-bottom: 4px; }
+                .bill-section { margin-bottom: 4px; }
+                .product-section { margin-bottom: 4px; }
                 
                 /* All sections should avoid page breaks */
                 .header-section, .bill-section, .product-section, .total-section, .footer-section {
@@ -140,27 +146,49 @@ const InvoicePreview = () => {
                 }
                 
                 /* Reduce spacing */
-                .mb-6, .mb-8 { margin-bottom: 2px !important; }
-                .py-2 { padding-top: 0px !important; padding-bottom: 0px !important; }
-                .space-y-2 { margin-top: 1px !important; }
+                .mb-6, .mb-8 { margin-bottom: 4px !important; }
+                .py-2 { padding-top: 2px !important; padding-bottom: 2px !important; }
+                .space-y-2 { margin-top: 2px !important; }
                 
                 /* Fix summary alignment */
                 .summary-row {
-                  margin-bottom: 0px;
+                  margin-bottom: 2px;
                   display: flex;
                   justify-content: flex-end;
                 }
                 
-                /* Scale down content if needed */
-                .scale-down {
-                  transform: scale(0.92);
-                  transform-origin: top left;
+                /* Ensure good visibility for summary values */
+                .summary-value {
+                  font-weight: bold;
+                  min-width: 80px;
+                }
+                
+                /* Headers and business name should be more visible */
+                h1, h2, h3, .business-name {
+                  font-weight: bold;
+                  margin: 1px 0;
+                }
+                
+                .business-name {
+                  font-size: 12px;
+                  margin-bottom: 2px;
+                }
+                
+                /* Grand total needs to stand out */
+                .grand-total {
+                  font-size: 10px;
+                  font-weight: bold;
+                }
+                
+                /* Product table needs good spacing */
+                .product-table td, .product-table th {
+                  padding: 2px 4px;
                 }
               }
             </style>
           </head>
           <body>
-            <div class="invoice-paper scale-down">
+            <div class="invoice-paper">
               ${content}
             </div>
             <script>
@@ -263,7 +291,7 @@ const InvoicePreview = () => {
           </div>
           <div className="text-left sm:text-right w-full sm:w-auto">
             <div className="mb-2">
-              <p className="font-semibold text-base sm:text-lg">{seller.businessName}</p>
+              <p className="font-semibold text-base sm:text-lg business-name">{seller.businessName}</p>
               <p className="text-sm text-gray-600">{seller.address}</p>
               <p className="text-sm text-gray-600">{seller.city}, {seller.state} - {seller.pincode}</p>
             </div>
@@ -278,7 +306,7 @@ const InvoicePreview = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 bill-section">
           <div className="space-y-1">
             <h3 className="font-medium text-gray-600">Bill To:</h3>
-            <p className="font-semibold">{customer.businessName}</p>
+            <p className="font-semibold business-name">{customer.businessName}</p>
             <p>Attn: {customer.name}</p>
             <p className="text-sm">{customer.address}</p>
             <p className="text-sm">{customer.city}, {customer.state} - {customer.pincode}</p>
@@ -365,7 +393,7 @@ const InvoicePreview = () => {
               </div>
               <div className="border-t pt-1 summary-row font-bold">
                 <span className="summary-label">Total:</span>
-                <span className="summary-value">{formatIndianCurrency(grandTotal)}</span>
+                <span className="summary-value grand-total">{formatIndianCurrency(grandTotal)}</span>
               </div>
             </div>
           </div>
