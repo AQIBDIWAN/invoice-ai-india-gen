@@ -144,7 +144,7 @@ const InvoicePreview = () => {
                 
                 /* Scale down content if needed */
                 .scale-down {
-                  transform: scale(0.95);
+                  transform: scale(0.92);
                   transform-origin: top left;
                 }
               }
@@ -186,7 +186,7 @@ const InvoicePreview = () => {
         ref={invoiceRef} 
         className="border rounded-lg p-4 sm:p-8 bg-white invoice-paper animate-fade-in overflow-x-auto"
       >
-        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start gap-4 header-section">
+        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-start gap-4 header-section">
           <div className="flex items-center gap-4">
             {seller.logo && (
               <img 
@@ -214,8 +214,8 @@ const InvoicePreview = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8 bill-section">
-          <div className="space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 bill-section">
+          <div className="space-y-1">
             <h3 className="font-medium text-gray-600">Bill To:</h3>
             <p className="font-semibold">{customer.businessName}</p>
             <p>Attn: {customer.name}</p>
@@ -311,18 +311,18 @@ const InvoicePreview = () => {
         </div>
         
         <div className="border-t pt-2 footer-section">
-          <div className="mb-2">
+          <div className="mb-1">
             <p className="text-xs sm:text-sm italic compact-text">Amount in words: <span className="font-medium">{numberToWords(grandTotal)}</span></p>
           </div>
           
           {invoiceDetails.description && (
-            <div className="mb-3">
+            <div className="mb-2">
               <h4 className="text-xs sm:text-sm font-semibold mb-1">Notes:</h4>
               <p className="text-xs sm:text-sm text-gray-600 compact-text">{invoiceDetails.description}</p>
             </div>
           )}
           
-          <div className="mt-3 sm:mt-4 text-center text-xs text-gray-500 compact-text">
+          <div className="mt-2 sm:mt-3 text-center text-xs text-gray-500 compact-text">
             <p>This is a computer generated invoice and does not require a physical signature.</p>
           </div>
         </div>

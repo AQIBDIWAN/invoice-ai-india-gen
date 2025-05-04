@@ -39,8 +39,8 @@ const Navbar = () => {
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
+        <div className="flex items-center justify-between flex-wrap">
+          <Link to="/" className="flex items-center gap-2 mb-2 sm:mb-0">
             {sellerLogo ? (
               <img 
                 src={sellerLogo} 
@@ -62,7 +62,7 @@ const Navbar = () => {
             </Link>
           </nav>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
             {user?.isLoggedIn ? (
               <>
                 {/* User info and logout */}
@@ -70,25 +70,26 @@ const Navbar = () => {
                   <span className="text-sm font-medium hidden sm:inline">
                     {user.username}
                   </span>
-                  <Button variant="outline" onClick={handleLogout}>
-                    <LogOut className="h-4 w-4 mr-2" />
+                  <Button variant="outline" onClick={handleLogout} className="text-xs md:text-sm px-2 md:px-3">
+                    <LogOut className="h-4 w-4 mr-1 md:mr-2" />
                     Logout
                   </Button>
                 </div>
               </>
             ) : (
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild className="text-xs md:text-sm px-2 md:px-3">
                 <Link to="/login">
-                  <User className="h-4 w-4 mr-2" />
+                  <User className="h-4 w-4 mr-1 md:mr-2" />
                   Login
                 </Link>
               </Button>
             )}
             
-            <Button asChild>
+            <Button asChild className="text-xs md:text-sm px-2 md:px-3">
               <Link to="/create-invoice">
-                <Plus className="h-4 w-4 mr-2" />
-                New Invoice
+                <Plus className="h-4 w-4 mr-1 md:mr-2" />
+                <span className="hidden xs:inline">New Invoice</span>
+                <span className="xs:hidden">New</span>
               </Link>
             </Button>
           </div>

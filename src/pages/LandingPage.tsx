@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -50,8 +51,8 @@ const LandingPage = () => {
     <div className="min-h-screen flex flex-col">
       <header className="border-b">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2">
+          <div className="flex items-center justify-between flex-wrap">
+            <Link to="/" className="flex items-center gap-2 mb-2 sm:mb-0">
               {sellerLogo ? (
                 <img 
                   src={sellerLogo} 
@@ -85,7 +86,7 @@ const LandingPage = () => {
               </button>
             </nav>
             
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
               {user?.isLoggedIn ? (
                 <>
                   {/* User info and logout */}
@@ -93,22 +94,22 @@ const LandingPage = () => {
                     <span className="text-sm font-medium hidden sm:inline">
                       {user.username}
                     </span>
-                    <Button variant="outline" onClick={handleLogout}>
-                      <LogOut className="h-4 w-4 mr-2" />
+                    <Button variant="outline" onClick={handleLogout} className="text-xs md:text-sm px-2 md:px-3">
+                      <LogOut className="h-4 w-4 mr-1 md:mr-2" />
                       Logout
                     </Button>
                   </div>
                 </>
               ) : (
-                <Button variant="outline" asChild>
+                <Button variant="outline" asChild className="text-xs md:text-sm px-2 md:px-3">
                   <Link to="/login">
-                    <User className="h-4 w-4 mr-2" />
+                    <User className="h-4 w-4 mr-1 md:mr-2" />
                     Login
                   </Link>
                 </Button>
               )}
               
-              <Button asChild>
+              <Button asChild className="text-xs md:text-sm px-2 md:px-3">
                 <Link to="/register">Register</Link>
               </Button>
             </div>
@@ -461,17 +462,17 @@ const LandingPage = () => {
                 <p className="text-gray-600 mb-6">
                   With a focus on GST compliance, user-friendly design, and cutting-edge AI technology, we've helped thousands of businesses save time and reduce errors in their invoicing processes.
                 </p>
-                <div className="flex items-center space-x-6 mt-8">
-                  <div className="flex flex-col items-center">
+                <div className="flex flex-wrap justify-between mt-8">
+                  <div className="flex flex-col items-center mb-4 w-full xs:w-auto">
                     <span className="text-3xl font-bold text-invoice-primary">5000+</span>
                     <span className="text-gray-500">Happy Customers</span>
                   </div>
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center mb-4 w-full xs:w-auto">
                     <span className="text-3xl font-bold text-invoice-primary">100,000+</span>
                     <span className="text-gray-500">Invoices Generated</span>
                   </div>
-                  <div className="flex flex-col items-center">
-                    <span className="text-3xl font-bold text-invoice-primary">₹150Cr+</span>
+                  <div className="flex flex-col items-center mb-4 w-full xs:w-auto">
+                    <span className="text-3xl font-bold text-invoice-primary whitespace-nowrap">₹150Cr+</span>
                     <span className="text-gray-500">Transactions</span>
                   </div>
                 </div>
