@@ -1,3 +1,4 @@
+
 import { useRef } from 'react';
 import { Button } from '../ui/button';
 import { formatIndianCurrency, numberToWords } from '@/utils/gstUtils';
@@ -67,11 +68,11 @@ const InvoicePreview = () => {
                 padding: 4px 5px; 
                 text-align: left; 
                 overflow-wrap: break-word;
-                font-size: 11px;
+                font-size: 12px;
               }
               th { 
                 border-bottom: 1px solid #ddd; 
-                font-size: 11px;
+                font-size: 12px;
                 font-weight: bold;
               }
               td { 
@@ -94,6 +95,7 @@ const InvoicePreview = () => {
                 width: 100%;
                 max-width: 300px;
                 margin-left: auto;
+                margin-right: 0;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
               }
@@ -105,20 +107,23 @@ const InvoicePreview = () => {
               }
               .summary-label {
                 text-align: left;
-                font-size: 11px;
+                font-size: 12px;
               }
               .summary-value {
                 text-align: right;
                 min-width: 100px;
+                max-width: 100px;
                 padding-left: 15px;
-                font-size: 11px;
+                font-size: 12px;
                 font-weight: bold;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
               .footer-section {
                 margin-top: 10px;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
-                font-size: 11px;
+                font-size: 12px;
               }
               @media print {
                 body { 
@@ -126,7 +131,7 @@ const InvoicePreview = () => {
                   width: 100%;
                   margin: 0;
                   padding: 5mm;
-                  font-size: 11px;
+                  font-size: 12px;
                   transform-origin: top center;
                 }
                 .invoice-paper {
@@ -153,12 +158,20 @@ const InvoicePreview = () => {
                   margin-bottom: 4px;
                   display: flex;
                   justify-content: flex-end;
+                  align-items: center;
+                  flex-wrap: nowrap;
                 }
                 
                 /* Ensure good visibility for summary values */
                 .summary-value {
                   font-weight: bold;
                   min-width: 100px;
+                  max-width: 100px;
+                  padding-left: 10px;
+                  text-align: right !important;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
                 }
                 
                 /* Headers and business name should be more visible */
@@ -176,12 +189,15 @@ const InvoicePreview = () => {
                 .grand-total {
                   font-size: 13px;
                   font-weight: bold;
+                  text-align: right !important;
+                  margin-right: 0 !important;
+                  padding-right: 0 !important;
                 }
                 
                 /* Product table needs good spacing */
                 .product-table td, .product-table th {
                   padding: 4px 5px;
-                  font-size: 11px;
+                  font-size: 12px;
                 }
                 
                 /* Ensure table headers are bold and visible */
@@ -194,6 +210,16 @@ const InvoicePreview = () => {
                 /* Make sure totals are right-aligned and visible */
                 .text-right, .summary-value, td:last-child {
                   text-align: right !important;
+                }
+                
+                /* Fix total section alignment */
+                .total-section {
+                  margin-left: auto !important;
+                  margin-right: 0 !important;
+                  width: 300px !important;
+                  max-width: 300px !important;
+                  float: right !important;
+                  clear: both !important;
                 }
               }
             </style>
@@ -432,3 +458,4 @@ const InvoicePreview = () => {
 };
 
 export default InvoicePreview;
+
