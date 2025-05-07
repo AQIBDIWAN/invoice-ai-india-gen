@@ -30,6 +30,16 @@ const unitOptions = [
   { value: "Hr", label: "Hour (Hr)" },
   { value: "Day", label: "Day" },
   { value: "Set", label: "Set" },
+  { value: "Unit", label: "Unit" },
+  { value: "Sq.m", label: "Square Meter" },
+  { value: "Sq.ft", label: "Square Feet" },
+  { value: "Ream", label: "Ream (Paper)" },
+  { value: "Qtl", label: "Quintal" },
+  { value: "Ton", label: "Ton" },
+  { value: "Bottle", label: "Bottle" },
+  { value: "Carton", label: "Carton" },
+  { value: "Roll", label: "Roll" },
+  { value: "Sheet", label: "Sheet" },
 ];
 
 const ProductsForm = () => {
@@ -80,14 +90,14 @@ const ProductsForm = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[30%]">Item</TableHead>
+                <TableHead className="w-[35%]">Item</TableHead>
                 <TableHead className="w-[12%]">Unit</TableHead>
                 <TableHead className="w-[8%]">Qty</TableHead>
                 <TableHead className="w-[12%]">Unit Price</TableHead>
                 <TableHead className="w-[10%]">Discount %</TableHead>
                 <TableHead className="w-[8%]">GST %</TableHead>
                 <TableHead className="w-[12%]">Total</TableHead>
-                <TableHead className="w-[8%]"></TableHead>
+                <TableHead className="w-[3%]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -98,7 +108,7 @@ const ProductsForm = () => {
                       value={product.name}
                       onChange={(e) => handleChange(product.id, 'name', e.target.value)}
                       placeholder="Item name"
-                      className="text-base"
+                      className="text-base font-medium"
                     />
                   </TableCell>
                   <TableCell>
@@ -109,7 +119,7 @@ const ProductsForm = () => {
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Unit" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-h-[300px]">
                         {unitOptions.map(option => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -178,8 +188,8 @@ const ProductsForm = () => {
       {isMobile && (
         <div className="space-y-6">
           {products.map((product, index) => (
-            <div key={product.id} className="border rounded-md p-4 space-y-3 relative">
-              <div className="absolute top-2 right-2">
+            <div key={product.id} className="border rounded-md p-5 space-y-4 relative">
+              <div className="absolute top-3 right-3">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -191,18 +201,18 @@ const ProductsForm = () => {
               </div>
               
               <div>
-                <p className="text-sm font-medium mb-1">Item {index + 1}</p>
+                <p className="text-sm font-medium mb-2">Item {index + 1}</p>
                 <Input
                   value={product.name}
                   onChange={(e) => handleChange(product.id, 'name', e.target.value)}
                   placeholder="Item name"
-                  className="text-base"
+                  className="text-base font-medium"
                 />
               </div>
               
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs font-medium mb-1">Unit</p>
+                  <p className="text-sm font-medium mb-2">Unit</p>
                   <Select 
                     value={product.unit} 
                     onValueChange={(value) => handleChange(product.id, 'unit', value)}
@@ -210,7 +220,7 @@ const ProductsForm = () => {
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Unit" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="max-h-[300px]">
                       {unitOptions.map(option => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
@@ -220,7 +230,7 @@ const ProductsForm = () => {
                   </Select>
                 </div>
                 <div>
-                  <p className="text-xs font-medium mb-1">Quantity</p>
+                  <p className="text-sm font-medium mb-2">Quantity</p>
                   <Input
                     type="number"
                     value={product.quantity}
@@ -231,9 +241,9 @@ const ProductsForm = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs font-medium mb-1">Unit Price</p>
+                  <p className="text-sm font-medium mb-2">Unit Price</p>
                   <Input
                     type="number"
                     value={product.unitPrice}
@@ -243,7 +253,7 @@ const ProductsForm = () => {
                   />
                 </div>
                 <div>
-                  <p className="text-xs font-medium mb-1">Discount %</p>
+                  <p className="text-sm font-medium mb-2">Discount %</p>
                   <Input
                     type="number"
                     value={product.discountRate}
@@ -255,9 +265,9 @@ const ProductsForm = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs font-medium mb-1">GST %</p>
+                  <p className="text-sm font-medium mb-2">GST %</p>
                   <Input
                     type="number"
                     value={product.tax}
@@ -267,8 +277,8 @@ const ProductsForm = () => {
                   />
                 </div>
                 <div>
-                  <p className="text-xs font-medium mb-1">Total</p>
-                  <p className="border rounded-md p-2 bg-gray-50 font-medium text-base">
+                  <p className="text-sm font-medium mb-2">Total</p>
+                  <p className="border rounded-md p-2 bg-gray-50 font-medium text-base h-10 flex items-center">
                     {formatIndianCurrency(product.total || 0)}
                   </p>
                 </div>

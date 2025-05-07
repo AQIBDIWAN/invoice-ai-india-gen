@@ -46,7 +46,7 @@ const InvoicePreview = () => {
                 font-family: Arial, sans-serif; 
                 margin: 0; 
                 padding: 5mm;
-                font-size: 12px; 
+                font-size: 13px; 
                 width: 100%;
                 max-width: 210mm;
                 height: 100%;
@@ -68,11 +68,11 @@ const InvoicePreview = () => {
                 padding: 4px 5px; 
                 text-align: left; 
                 overflow-wrap: break-word;
-                font-size: 12px;
+                font-size: 13px;
               }
               th { 
                 border-bottom: 1px solid #ddd; 
-                font-size: 12px;
+                font-size: 13px;
                 font-weight: bold;
               }
               td { 
@@ -83,7 +83,7 @@ const InvoicePreview = () => {
               .font-bold { font-weight: bold; }
               .text-gray-600 { color: #666; }
               img { max-height: 60px; }
-              .product-table th:nth-child(1) { width: 25%; }
+              .product-table th:nth-child(1) { width: 30%; }
               .product-table th:nth-child(2) { width: 10%; }
               .product-table th:nth-child(3) { width: 8%; }
               .product-table th:nth-child(4) { width: 12%; }
@@ -93,7 +93,7 @@ const InvoicePreview = () => {
               
               .total-section {
                 width: 100%;
-                max-width: 300px;
+                max-width: 280px;
                 margin-left: auto;
                 margin-right: 0;
                 page-break-inside: avoid !important;
@@ -107,14 +107,15 @@ const InvoicePreview = () => {
               }
               .summary-label {
                 text-align: left;
-                font-size: 12px;
+                font-size: 13px;
+                flex: 1;
               }
               .summary-value {
                 text-align: right;
-                min-width: 100px;
-                max-width: 100px;
-                padding-left: 15px;
-                font-size: 12px;
+                min-width: 90px;
+                max-width: 90px;
+                padding-left: 10px;
+                font-size: 13px;
                 font-weight: bold;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -123,7 +124,7 @@ const InvoicePreview = () => {
                 margin-top: 10px;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
-                font-size: 12px;
+                font-size: 13px;
               }
               @media print {
                 body { 
@@ -131,7 +132,7 @@ const InvoicePreview = () => {
                   width: 100%;
                   margin: 0;
                   padding: 5mm;
-                  font-size: 12px;
+                  font-size: 13px;
                   transform-origin: top center;
                 }
                 .invoice-paper {
@@ -165,8 +166,8 @@ const InvoicePreview = () => {
                 /* Ensure good visibility for summary values */
                 .summary-value {
                   font-weight: bold;
-                  min-width: 100px;
-                  max-width: 100px;
+                  min-width: 90px;
+                  max-width: 90px;
                   padding-left: 10px;
                   text-align: right !important;
                   white-space: nowrap;
@@ -187,7 +188,7 @@ const InvoicePreview = () => {
                 
                 /* Grand total needs to stand out */
                 .grand-total {
-                  font-size: 13px;
+                  font-size: 14px;
                   font-weight: bold;
                   text-align: right !important;
                   margin-right: 0 !important;
@@ -197,8 +198,12 @@ const InvoicePreview = () => {
                 /* Product table needs good spacing */
                 .product-table td, .product-table th {
                   padding: 4px 5px;
-                  font-size: 12px;
+                  font-size: 13px;
                 }
+                
+                /* Make table cells larger */
+                .product-table th:nth-child(1) { width: 32%; }
+                .product-table th:nth-child(2) { width: 12%; }
                 
                 /* Ensure table headers are bold and visible */
                 .product-table th {
@@ -216,8 +221,8 @@ const InvoicePreview = () => {
                 .total-section {
                   margin-left: auto !important;
                   margin-right: 0 !important;
-                  width: 300px !important;
-                  max-width: 300px !important;
+                  width: 280px !important;
+                  max-width: 280px !important;
                   float: right !important;
                   clear: both !important;
                 }
@@ -458,4 +463,3 @@ const InvoicePreview = () => {
 };
 
 export default InvoicePreview;
-
