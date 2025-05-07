@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { Button } from '../ui/button';
 import { formatIndianCurrency, numberToWords } from '@/utils/gstUtils';
@@ -108,11 +107,11 @@ const InvoicePreview = () => {
                 display: flex;
                 align-items: flex-start;
                 gap: 15px;
-                width: 40%;
+                width: 30%;
               }
               
               .header-right {
-                width: 55%;
+                width: 65%;
                 text-align: right;
               }
               
@@ -130,13 +129,15 @@ const InvoicePreview = () => {
                 font-size: 18px;
                 line-height: 1.3;
                 padding-left: 0;
+                max-width: 100%;
+                word-wrap: break-word;
               }
               
               .total-section {
                 width: 100%;
                 max-width: 250px;
                 margin-left: auto;
-                margin-right: 20px;
+                margin-right: 0;
                 padding-right: 0;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
@@ -202,6 +203,47 @@ const InvoicePreview = () => {
                 .py-2 { padding-top: 5px !important; padding-bottom: 5px !important; }
                 .space-y-2 { margin-top: 5px !important; }
                 
+                /* Fix header layout to prevent business name overlap */
+                .header-container {
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  width: 100%;
+                  margin-bottom: 15px;
+                }
+                
+                .header-left {
+                  display: flex;
+                  align-items: flex-start;
+                  gap: 15px;
+                  width: 30%;
+                }
+                
+                .header-right {
+                  width: 65%;
+                  text-align: right;
+                }
+                
+                .invoice-title {
+                  margin-top: 0;
+                  margin-bottom: 6px;
+                  font-weight: bold;
+                  font-size: 22px;
+                  clear: both;
+                }
+                
+                .business-name {
+                  margin-top: 0;
+                  margin-bottom: 6px;
+                  font-weight: bold;
+                  font-size: 18px;
+                  line-height: 1.3;
+                  clear: both;
+                  word-wrap: break-word;
+                  max-width: 100%;
+                }
+                
                 /* Fix summary alignment */
                 .summary-row {
                   margin-bottom: 5px;
@@ -221,70 +263,16 @@ const InvoicePreview = () => {
                   white-space: nowrap;
                 }
                 
-                /* Headers and business name should be more visible and not overlap */
-                .header-container {
-                  display: flex;
-                  flex-direction: row;
-                  justify-content: space-between;
-                  align-items: flex-start;
-                  width: 100%;
-                  margin-bottom: 15px;
-                }
-                
-                .header-left {
-                  display: flex;
-                  align-items: flex-start;
-                  gap: 15px;
-                  width: 40%;
-                }
-                
-                .header-right {
-                  width: 55%;
-                  text-align: right;
-                  padding-left: 20px;
-                }
-                
-                .invoice-title {
-                  margin-top: 0;
-                  margin-bottom: 6px;
-                  font-weight: bold;
-                  font-size: 22px;
-                }
-                
-                .business-name {
-                  margin-top: 0;
-                  margin-bottom: 6px;
-                  font-weight: bold;
-                  font-size: 18px;
-                  line-height: 1.3;
-                  clear: right;
-                }
-                
                 /* Product table needs good spacing - adjusted item columns width */
                 .product-table td, .product-table th {
                   padding: 6px 5px;
                   font-size: 14px;
                 }
                 
-                .product-table th:nth-child(1) { width: 40%; }
-                .product-table th:nth-child(2) { width: 10%; }
-                
-                /* Ensure table headers are bold and visible */
-                .product-table th {
-                  font-weight: bold;
-                  background-color: #f9fafb !important;
-                  color: #111827 !important;
-                }
-                
-                /* Make sure totals are right-aligned and visible */
-                .text-right, .summary-value, td:last-child {
-                  text-align: right !important;
-                }
-                
                 /* Fix total section alignment */
                 .total-section {
                   margin-left: auto !important;
-                  margin-right: 20px !important;
+                  margin-right: 0 !important;
                   width: 250px !important;
                   max-width: 250px !important;
                   float: right !important;
@@ -396,7 +384,8 @@ const InvoicePreview = () => {
               <img 
                 src={seller.logo} 
                 alt="Seller Logo" 
-                className="h-12 w-12 sm:h-16 sm:w-16 object-contain"
+                className="h-10 w-10 sm:h-16 sm:w-16 object-contain"
+                style={{ marginRight: '8px' }}
               />
             )}
             <div>
