@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Search, Upload } from "lucide-react";
 import { useInvoice } from "@/contexts/InvoiceContext";
-import { fetchGSTDetails, validateGST } from "@/utils/gstUtils";
+import { fetchGSTDetails, validateGST, saveGSTDetailsToLocalStorage } from "@/utils/gstUtils";
 import { useToast } from "@/components/ui/use-toast";
 import { toast } from "@/components/ui/sonner";
 
@@ -70,6 +70,22 @@ const SellerForm = () => {
       ...prev,
       [name]: value
     }));
+    
+    // If user changes a field and there's a GST number present, store the updated details
+    if (seller.gstNumber && validateGST(seller.gstNumber) && name !== "gstNumber") {
+      // Create data object with current seller details
+      const sellerData = {
+        name: seller.name,
+        surname: seller.surname,
+        businessName: seller.businessName,
+        state: seller.state,
+        city: seller.city
+      };
+      
+      // Save to localStorage
+      saveGSTDetailsToLocalStorage(seller.gstNumber, sellerData);
+      console.log("Saved updated seller GST details to localStorage");
+    }
   };
   
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

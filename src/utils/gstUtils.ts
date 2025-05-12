@@ -1,4 +1,3 @@
-
 interface GSTData {
   name: string;
   surname?: string;
@@ -62,6 +61,39 @@ export const getStateFromGST = (gstNumber: string): string => {
   };
   
   return stateMap[stateCode] || "";
+};
+
+// Save GST details to local storage
+export const saveGSTDetailsToLocalStorage = (gstNumber: string, details: GSTData) => {
+  try {
+    // Get existing stored GST details or initialize empty object
+    const storedGSTDetails = localStorage.getItem('gstDetails');
+    const gstDetailsMap = storedGSTDetails ? JSON.parse(storedGSTDetails) : {};
+    
+    // Add or update details for this GST number
+    gstDetailsMap[gstNumber] = details;
+    
+    // Save back to localStorage
+    localStorage.setItem('gstDetails', JSON.stringify(gstDetailsMap));
+    return true;
+  } catch (error) {
+    console.error("Failed to save GST details to localStorage:", error);
+    return false;
+  }
+};
+
+// Get stored GST details from local storage
+export const getStoredGSTDetails = (gstNumber: string): GSTData | null => {
+  try {
+    const storedGSTDetails = localStorage.getItem('gstDetails');
+    if (!storedGSTDetails) return null;
+    
+    const gstDetailsMap = JSON.parse(storedGSTDetails);
+    return gstDetailsMap[gstNumber] || null;
+  } catch (error) {
+    console.error("Failed to retrieve GST details from localStorage:", error);
+    return null;
+  }
 };
 
 // Generate business name based on GST number pattern - improved deterministic generation
@@ -212,10 +244,18 @@ const generatePersonName = (gstNumber: string): {name: string, surname: string} 
 // In a real application, this would be an API call to GST Portal
 export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null> => {
   if (!validateGST(gstNumber)) return null;
-
+  
+  // First check if we have stored details for this GST number
+  const storedDetails = getStoredGSTDetails(gstNumber);
+  if (storedDetails) {
+    console.log("Found stored GST details:", storedDetails);
+    return storedDetails;
+  }
+  
   // This is a mock function, in production this would be an API call
   return new Promise((resolve) => {
     setTimeout(() => {
+      // Only generate mock data if we don't have stored details
       const state = getStateFromGST(gstNumber);
       const randomCities: {[key: string]: string[]} = {
         "Delhi": ["Delhi", "New Delhi"],
@@ -228,7 +268,6 @@ export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null
       };
       
       const cities = randomCities[state] || ["Unknown City"];
-      // Make city selection deterministic based on GST number
       const cityIndex = gstNumber.charCodeAt(5) % cities.length;
       const randomCity = cities[cityIndex];
       
@@ -238,13 +277,15 @@ export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null
       // Generate deterministic person name based on GST number
       const person = generatePersonName(gstNumber);
       
-      resolve({
+      const mockData = {
         name: person.name,
         surname: person.surname,
         businessName: businessName,
         state,
         city: randomCity
-      });
+      };
+      
+      resolve(mockData);
     }, 800);
   });
 };

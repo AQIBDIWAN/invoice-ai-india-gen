@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import { useInvoice } from "@/contexts/InvoiceContext";
-import { fetchGSTDetails, validateGST } from "@/utils/gstUtils";
+import { fetchGSTDetails, validateGST, saveGSTDetailsToLocalStorage } from "@/utils/gstUtils";
 import { useToast } from "@/components/ui/use-toast";
 
 const CustomerForm = () => {
@@ -64,6 +63,21 @@ const CustomerForm = () => {
       ...prev,
       [name]: value
     }));
+    
+    // If user changes a field and there's a GST number present, store the updated details
+    if (customer.gstNumber && validateGST(customer.gstNumber) && name !== "gstNumber") {
+      // Create data object with current customer details
+      const customerData = {
+        name: customer.name,
+        businessName: customer.businessName,
+        state: customer.state,
+        city: customer.city
+      };
+      
+      // Save to localStorage
+      saveGSTDetailsToLocalStorage(customer.gstNumber, customerData);
+      console.log("Saved updated customer GST details to localStorage");
+    }
   };
 
   return (
