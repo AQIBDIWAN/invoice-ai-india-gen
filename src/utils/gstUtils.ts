@@ -64,7 +64,7 @@ export const getStateFromGST = (gstNumber: string): string => {
   return stateMap[stateCode] || "";
 };
 
-// Generate business name based on GST number pattern
+// Generate business name based on GST number pattern - improved deterministic generation
 const generateBusinessName = (gstNumber: string): string => {
   // Extract the PAN part of GST (characters 3-12)
   const panPart = gstNumber.substring(2, 12);
@@ -102,9 +102,9 @@ const generateBusinessName = (gstNumber: string): string => {
   const firstChar = panPart.charAt(0);
   const nameList = businessTypes[firstChar as keyof typeof businessTypes] || ['Enterprise'];
   
-  // Use third character of PAN to select from the name list
+  // Make selection more deterministic by using fixed characters from GST
   const nameIndex = Math.min(
-    panPart.charCodeAt(2) % nameList.length,
+    (panPart.charCodeAt(2) + panPart.charCodeAt(4)) % nameList.length,
     nameList.length - 1
   );
   
@@ -113,14 +113,14 @@ const generateBusinessName = (gstNumber: string): string => {
   // Get business suffix based on the last character of the PAN
   const suffixes = ['Enterprises', 'Industries', 'Limited', 'Pvt Ltd', 'Trading Co', 'Solutions', 'Corporation'];
   const suffixIndex = Math.min(
-    panPart.charCodeAt(panPart.length - 1) % suffixes.length,
+    (panPart.charCodeAt(panPart.length - 1) + panPart.charCodeAt(panPart.length - 2)) % suffixes.length,
     suffixes.length - 1
   );
   
   return `${businessName} ${suffixes[suffixIndex]}`;
 };
 
-// Generate person name based on GST number
+// Generate person name based on GST number - improved deterministic generation
 const generatePersonName = (gstNumber: string): {name: string, surname: string} => {
   // Extract the PAN part of GST (characters 3-12)
   const panPart = gstNumber.substring(2, 12);
@@ -185,22 +185,21 @@ const generatePersonName = (gstNumber: string): {name: string, surname: string} 
     'Z': ['Zaveri', 'Zaidi', 'Zubin', 'Zutshi']
   };
   
-  // Get first character of PAN for first name
+  // Make selection more deterministic by using fixed characters from GST
   const firstChar = panPart.charAt(0);
   const firstNameList = firstNames[firstChar as keyof typeof firstNames] || ['Raj'];
   
-  // Get second character of PAN for last name
   const secondChar = panPart.charAt(1);
   const lastNameList = lastNames[secondChar as keyof typeof lastNames] || ['Kumar'];
   
-  // Use numerical characters in PAN to select names
+  // Use specific characters to ensure consistent results
   const firstNameIndex = Math.min(
-    panPart.charCodeAt(3) % firstNameList.length,
+    (panPart.charCodeAt(3) + panPart.charCodeAt(5)) % firstNameList.length,
     firstNameList.length - 1
   );
   
   const lastNameIndex = Math.min(
-    panPart.charCodeAt(4) % lastNameList.length,
+    (panPart.charCodeAt(4) + panPart.charCodeAt(6)) % lastNameList.length,
     lastNameList.length - 1
   );
   
@@ -229,7 +228,9 @@ export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null
       };
       
       const cities = randomCities[state] || ["Unknown City"];
-      const randomCity = cities[Math.floor(Math.random() * cities.length)];
+      // Make city selection deterministic based on GST number
+      const cityIndex = gstNumber.charCodeAt(5) % cities.length;
+      const randomCity = cities[cityIndex];
       
       // Generate deterministic business name based on GST number
       const businessName = generateBusinessName(gstNumber);

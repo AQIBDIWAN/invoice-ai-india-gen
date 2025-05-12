@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Search, Upload } from "lucide-react";
-import { Seller, useInvoice } from "@/contexts/InvoiceContext";
+import { useInvoice } from "@/contexts/InvoiceContext";
 import { fetchGSTDetails, validateGST } from "@/utils/gstUtils";
 import { useToast } from "@/components/ui/use-toast";
 import { toast } from "@/components/ui/sonner";
@@ -32,18 +32,25 @@ const SellerForm = () => {
     try {
       const details = await fetchGSTDetails(seller.gstNumber);
       if (details) {
-        setSeller(prev => ({
-          ...prev,
-          name: details.name || prev.name,
-          surname: details.surname || prev.surname,
-          businessName: details.businessName || prev.businessName,
-          state: details.state || prev.state,
-          city: details.city || prev.city
-        }));
+        // Create a properly merged object with the new details
+        const updatedSeller = {
+          ...seller,
+          name: details.name || seller.name,
+          surname: details.surname || seller.surname,
+          businessName: details.businessName || seller.businessName,
+          state: details.state || seller.state,
+          city: details.city || seller.city
+        };
+        
+        // Update the seller state with the complete object
+        setSeller(updatedSeller);
+        
         useToastFn({
           title: "GST Details Found",
           description: "Seller details have been automatically populated",
         });
+        
+        console.log("Updated seller details:", updatedSeller);
       }
     } catch (error) {
       useToastFn({
@@ -51,6 +58,7 @@ const SellerForm = () => {
         description: "Failed to fetch GST details",
         variant: "destructive"
       });
+      console.error("GST fetch error:", error);
     } finally {
       setIsLoading(false);
     }

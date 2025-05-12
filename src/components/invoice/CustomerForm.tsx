@@ -27,17 +27,24 @@ const CustomerForm = () => {
     try {
       const details = await fetchGSTDetails(customer.gstNumber);
       if (details) {
-        setCustomer(prev => ({
-          ...prev,
-          name: details.name || prev.name,
-          businessName: details.businessName || prev.businessName,
-          state: details.state || prev.state,
-          city: details.city || prev.city
-        }));
+        // Create a properly merged object with the new details
+        const updatedCustomer = {
+          ...customer,
+          name: details.name || customer.name,
+          businessName: details.businessName || customer.businessName,
+          state: details.state || customer.state,
+          city: details.city || customer.city
+        };
+        
+        // Update the customer state with the complete object
+        setCustomer(updatedCustomer);
+        
         toast({
           title: "GST Details Found",
           description: "Customer details have been automatically populated",
         });
+        
+        console.log("Updated customer details:", updatedCustomer);
       }
     } catch (error) {
       toast({
@@ -45,6 +52,7 @@ const CustomerForm = () => {
         description: "Failed to fetch GST details",
         variant: "destructive"
       });
+      console.error("GST fetch error:", error);
     } finally {
       setIsLoading(false);
     }
