@@ -1,4 +1,3 @@
-
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
@@ -90,8 +89,8 @@ const ProductsForm = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[40%]">Item</TableHead>
-                <TableHead className="w-[12%]">Unit</TableHead>
+                <TableHead className="w-[45%]">Item</TableHead>
+                <TableHead className="w-[10%]">Unit</TableHead>
                 <TableHead className="w-[8%]">Qty</TableHead>
                 <TableHead className="w-[12%]">Unit Price</TableHead>
                 <TableHead className="w-[10%]">Discount %</TableHead>
@@ -108,7 +107,7 @@ const ProductsForm = () => {
                       value={product.name}
                       onChange={(e) => handleChange(product.id, 'name', e.target.value)}
                       placeholder="Item name"
-                      className="text-base font-medium min-h-[44px]"
+                      className="text-base font-medium min-h-[48px]"
                     />
                   </TableCell>
                   <TableCell>
@@ -116,7 +115,7 @@ const ProductsForm = () => {
                       value={product.unit} 
                       onValueChange={(value) => handleChange(product.id, 'unit', value)}
                     >
-                      <SelectTrigger className="w-full min-h-[44px]">
+                      <SelectTrigger className="w-full min-h-[48px]">
                         <SelectValue placeholder="Unit" />
                       </SelectTrigger>
                       <SelectContent className="max-h-[300px]">
@@ -134,7 +133,7 @@ const ProductsForm = () => {
                       value={product.quantity}
                       onChange={(e) => handleChange(product.id, 'quantity', Number(e.target.value))}
                       min="1"
-                      className="w-16 md:w-24 text-base min-h-[44px]"
+                      className="w-16 md:w-24 text-base min-h-[48px]"
                     />
                   </TableCell>
                   <TableCell>
@@ -143,7 +142,7 @@ const ProductsForm = () => {
                       value={product.unitPrice}
                       onChange={(e) => handleChange(product.id, 'unitPrice', Number(e.target.value))}
                       min="0"
-                      className="w-24 md:w-30 text-base min-h-[44px]"
+                      className="w-24 md:w-30 text-base min-h-[48px]"
                     />
                   </TableCell>
                   <TableCell>
@@ -153,7 +152,7 @@ const ProductsForm = () => {
                       onChange={(e) => handleChange(product.id, 'discountRate', Number(e.target.value))}
                       min="0"
                       max="100"
-                      className="w-20 md:w-24 text-base min-h-[44px]"
+                      className="w-20 md:w-24 text-base min-h-[48px]"
                     />
                   </TableCell>
                   <TableCell>
@@ -162,7 +161,7 @@ const ProductsForm = () => {
                       value={product.tax}
                       onChange={(e) => handleChange(product.id, 'tax', Number(e.target.value))}
                       min="0"
-                      className="w-16 md:w-20 text-base min-h-[44px]"
+                      className="w-16 md:w-20 text-base min-h-[48px]"
                     />
                   </TableCell>
                   <TableCell className="font-medium text-base">
