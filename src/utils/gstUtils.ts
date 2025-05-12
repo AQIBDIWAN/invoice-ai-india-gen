@@ -64,19 +64,159 @@ export const getStateFromGST = (gstNumber: string): string => {
   return stateMap[stateCode] || "";
 };
 
+// Generate business name based on GST number pattern
+const generateBusinessName = (gstNumber: string): string => {
+  // Extract the PAN part of GST (characters 3-12)
+  const panPart = gstNumber.substring(2, 12);
+  
+  // Use first letter of PAN to determine business type
+  const businessTypes = {
+    'A': ['Agarwal', 'Apex', 'Alpha', 'Ashoka'],
+    'B': ['Bharat', 'Bajaj', 'Blue Star', 'Birla'],
+    'C': ['Choudhary', 'Crown', 'City', 'Capital'],
+    'D': ['Dalmia', 'Divine', 'Diamond', 'Dewan'],
+    'E': ['Excel', 'East India', 'Express', 'Eagle'],
+    'F': ['Future', 'Falcon', 'First Choice', 'Fortune'],
+    'G': ['Godrej', 'Global', 'Galaxy', 'Greenfield'],
+    'H': ['Hindustan', 'Horizon', 'Heritage', 'Hightech'],
+    'I': ['Indian', 'Infosys', 'Indigo', 'Imperial'],
+    'J': ['Jindal', 'Jain', 'Jupiter', 'Jaguar'],
+    'K': ['Kumar', 'Kingfisher', 'Kohinoor', 'Kesar'],
+    'L': ['Laxmi', 'Lotus', 'Lion', 'Liberty'],
+    'M': ['Mahindra', 'Modern', 'Marvel', 'Metro'],
+    'N': ['National', 'New Age', 'Noble', 'Narmada'],
+    'O': ['Orient', 'Omega', 'Orchid', 'Olympic'],
+    'P': ['Patil', 'Premier', 'Pioneer', 'Prime'],
+    'Q': ['Quality', 'Quest', 'Quantum', 'Quick'],
+    'R': ['Reliance', 'Royal', 'Rajesh', 'Rainbow'],
+    'S': ['Singh', 'Sharma', 'Supreme', 'Silver'],
+    'T': ['Tata', 'Tristar', 'Tiger', 'Tech'],
+    'U': ['United', 'Universal', 'Ultra', 'Union'],
+    'V': ['Verma', 'Vision', 'Vimal', 'Victory'],
+    'W': ['Western', 'World', 'Wonder', 'White'],
+    'X': ['Xenon', 'Xpress', 'Xcel', 'X-Factor'],
+    'Y': ['Yadav', 'Young', 'Yellow', 'Yuva'],
+    'Z': ['Zenith', 'Zoom', 'Zodiac', 'Zest']
+  };
+  
+  const firstChar = panPart.charAt(0);
+  const nameList = businessTypes[firstChar as keyof typeof businessTypes] || ['Enterprise'];
+  
+  // Use third character of PAN to select from the name list
+  const nameIndex = Math.min(
+    panPart.charCodeAt(2) % nameList.length,
+    nameList.length - 1
+  );
+  
+  const businessName = nameList[nameIndex];
+  
+  // Get business suffix based on the last character of the PAN
+  const suffixes = ['Enterprises', 'Industries', 'Limited', 'Pvt Ltd', 'Trading Co', 'Solutions', 'Corporation'];
+  const suffixIndex = Math.min(
+    panPart.charCodeAt(panPart.length - 1) % suffixes.length,
+    suffixes.length - 1
+  );
+  
+  return `${businessName} ${suffixes[suffixIndex]}`;
+};
+
+// Generate person name based on GST number
+const generatePersonName = (gstNumber: string): {name: string, surname: string} => {
+  // Extract the PAN part of GST (characters 3-12)
+  const panPart = gstNumber.substring(2, 12);
+  
+  // First name options
+  const firstNames = {
+    'A': ['Amit', 'Anil', 'Ajay', 'Arun'],
+    'B': ['Baldev', 'Bharat', 'Brijesh', 'Bikram'],
+    'C': ['Chetan', 'Chirag', 'Chandan', 'Chinmay'],
+    'D': ['Deepak', 'Dinesh', 'Dhruv', 'Dev'],
+    'E': ['Ekant', 'Eshaan', 'Eshan', 'Eshwar'],
+    'F': ['Farhan', 'Faiz', 'Faisal', 'Fahad'],
+    'G': ['Gaurav', 'Govind', 'Girish', 'Ganesh'],
+    'H': ['Harish', 'Himanshu', 'Harsh', 'Hitesh'],
+    'I': ['Ishaan', 'Imran', 'Inderjeet', 'Irfan'],
+    'J': ['Jatin', 'Jai', 'Jayant', 'Jagdish'],
+    'K': ['Karan', 'Kunal', 'Kamal', 'Krishan'],
+    'L': ['Lalit', 'Lokesh', 'Lakshman', 'Laxman'],
+    'M': ['Mohit', 'Manish', 'Manoj', 'Mukesh'],
+    'N': ['Nitin', 'Naveen', 'Neeraj', 'Nitesh'],
+    'O': ['Om', 'Omkar', 'Onkar', 'Omansh'],
+    'P': ['Pradeep', 'Pankaj', 'Prakash', 'Praveen'],
+    'Q': ['Qadir', 'Qasim', 'Qureshi', 'Qamar'],
+    'R': ['Rahul', 'Raj', 'Rakesh', 'Rajesh'],
+    'S': ['Sanjay', 'Suresh', 'Sandeep', 'Sunil'],
+    'T': ['Tarun', 'Tushar', 'Trilok', 'Tejinder'],
+    'U': ['Umesh', 'Uday', 'Ujjwal', 'Udayan'],
+    'V': ['Vijay', 'Vikram', 'Varun', 'Vinod'],
+    'W': ['Wasim', 'Waqar', 'Wahid', 'Wali'],
+    'X': ['Xavier', 'Xander', 'Xerxes', 'Ximun'],
+    'Y': ['Yash', 'Yogesh', 'Yuvraj', 'Yatin'],
+    'Z': ['Zubin', 'Zaheer', 'Zeeshan', 'Zubair']
+  };
+  
+  // Surname options
+  const lastNames = {
+    'A': ['Agarwal', 'Arora', 'Ahuja', 'Anand'],
+    'B': ['Bansal', 'Bhatia', 'Bhalla', 'Bajaj'],
+    'C': ['Chopra', 'Chadha', 'Chauhan', 'Chawla'],
+    'D': ['Dhawan', 'Duggal', 'Dutta', 'Dalal'],
+    'E': ['Eshwaran', 'Ezhil', 'Emmanuel', 'Easwaran'],
+    'F': ['Fotedar', 'Farooqui', 'Fazal', 'Fernandez'],
+    'G': ['Gupta', 'Goel', 'Garg', 'Gandhi'],
+    'H': ['Hora', 'Hegde', 'Handa', 'Hans'],
+    'I': ['Iyengar', 'Iyer', 'Israni', 'Ibrahim'],
+    'J': ['Joshi', 'Jain', 'Johar', 'Juneja'],
+    'K': ['Kumar', 'Khanna', 'Kapoor', 'Kaur'],
+    'L': ['Luthra', 'Lamba', 'Lal', 'Lakhanpal'],
+    'M': ['Mehta', 'Malhotra', 'Malik', 'Mathur'],
+    'N': ['Nair', 'Nanda', 'Nagpal', 'Narang'],
+    'O': ['Oberoi', 'Oommen', 'Om', 'Ojha'],
+    'P': ['Patel', 'Prasad', 'Patil', 'Pandey'],
+    'Q': ['Qureshi', 'Quadri', 'Qazi', 'Quresh'],
+    'R': ['Rao', 'Reddy', 'Rathore', 'Roy'],
+    'S': ['Sharma', 'Singh', 'Shah', 'Saxena'],
+    'T': ['Tiwari', 'Tandon', 'Thapar', 'Thakur'],
+    'U': ['Upadhyay', 'Uppal', 'Uttamchandani', 'Usgaonkar'],
+    'V': ['Verma', 'Vyas', 'Venkatesh', 'Vora'],
+    'W': ['Wadhwa', 'Walia', 'Wadekar', 'Wagh'],
+    'X': ['Xavier', 'Xalxo', 'Xess', 'Xaxa'],
+    'Y': ['Yadav', 'Yogi', 'Yohannan', 'Yagnik'],
+    'Z': ['Zaveri', 'Zaidi', 'Zubin', 'Zutshi']
+  };
+  
+  // Get first character of PAN for first name
+  const firstChar = panPart.charAt(0);
+  const firstNameList = firstNames[firstChar as keyof typeof firstNames] || ['Raj'];
+  
+  // Get second character of PAN for last name
+  const secondChar = panPart.charAt(1);
+  const lastNameList = lastNames[secondChar as keyof typeof lastNames] || ['Kumar'];
+  
+  // Use numerical characters in PAN to select names
+  const firstNameIndex = Math.min(
+    panPart.charCodeAt(3) % firstNameList.length,
+    firstNameList.length - 1
+  );
+  
+  const lastNameIndex = Math.min(
+    panPart.charCodeAt(4) % lastNameList.length,
+    lastNameList.length - 1
+  );
+  
+  return {
+    name: firstNameList[firstNameIndex],
+    surname: lastNameList[lastNameIndex]
+  };
+};
+
 // In a real application, this would be an API call to GST Portal
 export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null> => {
   if (!validateGST(gstNumber)) return null;
 
   // This is a mock function, in production this would be an API call
-  // We're simulating a delay with setTimeout
   return new Promise((resolve) => {
     setTimeout(() => {
-      const firstChar = gstNumber.charAt(2).toLowerCase();
-      const bizNamePrefix = firstChar === 'a' ? 'Agarwal' : 
-                          firstChar === 'b' ? 'Bansal' :
-                          firstChar === 'c' ? 'Choudhary' : 'Business';
-      
       const state = getStateFromGST(gstNumber);
       const randomCities: {[key: string]: string[]} = {
         "Delhi": ["Delhi", "New Delhi"],
@@ -91,10 +231,16 @@ export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null
       const cities = randomCities[state] || ["Unknown City"];
       const randomCity = cities[Math.floor(Math.random() * cities.length)];
       
+      // Generate deterministic business name based on GST number
+      const businessName = generateBusinessName(gstNumber);
+      
+      // Generate deterministic person name based on GST number
+      const person = generatePersonName(gstNumber);
+      
       resolve({
-        name: Math.random() > 0.5 ? "Raj" : "Amit",
-        surname: Math.random() > 0.5 ? "Kumar" : "Sharma",
-        businessName: `${bizNamePrefix} ${Math.random() > 0.5 ? 'Enterprises' : 'Trading Co'}`,
+        name: person.name,
+        surname: person.surname,
+        businessName: businessName,
         state,
         city: randomCity
       });

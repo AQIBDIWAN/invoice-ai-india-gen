@@ -36,7 +36,7 @@ const CustomerForm = () => {
         }));
         toast({
           title: "GST Details Found",
-          description: "Customer details have been populated from GST database",
+          description: "Customer details have been automatically populated",
         });
       }
     } catch (error) {

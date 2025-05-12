@@ -12,6 +12,22 @@ const Layout = () => {
       <main className={`flex-1 mx-auto w-full ${isMobile ? 'px-4 py-4' : 'container px-4 py-8'}`}>
         <Outlet />
       </main>
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          #invoice-preview, #invoice-preview * {
+            visibility: visible;
+          }
+          #invoice-preview {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+          }
+        }
+      `}</style>
     </div>
   );
 };

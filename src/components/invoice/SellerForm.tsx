@@ -42,7 +42,7 @@ const SellerForm = () => {
         }));
         useToastFn({
           title: "GST Details Found",
-          description: "Seller details have been populated from GST database",
+          description: "Seller details have been automatically populated",
         });
       }
     } catch (error) {
@@ -121,7 +121,7 @@ const SellerForm = () => {
               onChange={handleLogoUpload}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
-            <Button variant="outline" size="sm" className="relative">
+            <Button variant="outline" size="sm" className="relative z-0">
               <Upload className="h-4 w-4 mr-2" />
               {sellerLogo ? "Change Logo" : "Upload Logo"}
             </Button>
