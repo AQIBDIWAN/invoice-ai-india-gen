@@ -12,7 +12,7 @@ const Layout = () => {
       <main className={`flex-1 mx-auto w-full ${isMobile ? 'px-4 py-4' : 'container px-4 py-8'}`}>
         <Outlet />
       </main>
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media print {
           body * {
             visibility: hidden;
@@ -27,7 +27,7 @@ const Layout = () => {
             width: 100%;
           }
         }
-      `}</style>
+      `}} />
     </div>
   );
 };
