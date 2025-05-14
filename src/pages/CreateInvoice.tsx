@@ -14,6 +14,7 @@ import InvoiceSummary from "@/components/invoice/InvoiceSummary";
 import { useInvoice } from "@/contexts/InvoiceContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 
 const CreateInvoice = () => {
   const [activeTab, setActiveTab] = useState<string>("manual");
@@ -25,6 +26,65 @@ const CreateInvoice = () => {
     const printButton = document.querySelector("#invoice-preview button") as HTMLButtonElement;
     if (printButton) {
       printButton.click();
+    } else {
+      toast({
+        title: "Print Error",
+        description: "Couldn't find print button. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  // Open preview in a new window without resetting the invoice data
+  const handleViewPreview = () => {
+    // Open a new window with just the invoice content
+    const previewWindow = window.open('', '_blank');
+    
+    if (previewWindow && document.querySelector("#invoice-print")) {
+      // Get the invoice content
+      const content = document.querySelector("#invoice-print")?.innerHTML;
+      
+      // Write the content to the new window with appropriate styling
+      previewWindow.document.write(`
+        <html>
+          <head>
+            <title>Invoice Preview</title>
+            <style>
+              body { 
+                font-family: Arial, sans-serif; 
+                margin: 0; 
+                padding: 10mm;
+                font-size: 14px;
+              }
+              .invoice-paper { 
+                width: 100%;
+                max-width: 210mm;
+                margin: 0 auto;
+                padding: 0;
+              }
+              /* Include all other necessary styles from InvoicePreview.tsx */
+              table { width: 100%; border-collapse: collapse; }
+              th, td { padding: 5px; text-align: left; }
+              th { border-bottom: 1px solid #ddd; }
+              td { border-bottom: 1px solid #eee; }
+              .text-right { text-align: right; }
+              .text-center { text-align: center; }
+              .font-bold { font-weight: bold; }
+            </style>
+          </head>
+          <body>
+            <div class="invoice-paper">
+              ${content}
+            </div>
+          </body>
+        </html>
+      `);
+    } else {
+      toast({
+        title: "Preview Error",
+        description: "Couldn't generate preview. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -102,7 +162,7 @@ const CreateInvoice = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => window.open('#invoice-preview', '_blank')}
+                      onClick={handleViewPreview}
                       className="flex items-center gap-2"
                     >
                       <Eye className="h-4 w-4" />
@@ -169,7 +229,7 @@ const CreateInvoice = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => window.open('#invoice-preview', '_blank')}
+                      onClick={handleViewPreview}
                       className="flex items-center gap-2"
                     >
                       <Eye className="h-4 w-4" />
