@@ -1,8 +1,9 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Bot, ArrowLeft } from "lucide-react";
+import { FileText, Bot, ArrowLeft, Eye, Printer } from "lucide-react";
 import SellerForm from "@/components/invoice/SellerForm";
 import CustomerForm from "@/components/invoice/CustomerForm";
 import ProductsForm from "@/components/invoice/ProductsForm";
@@ -19,6 +20,13 @@ const CreateInvoice = () => {
   const { resetInvoice } = useInvoice();
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+
+  const handlePrintInvoice = () => {
+    const printButton = document.querySelector("#invoice-preview button") as HTMLButtonElement;
+    if (printButton) {
+      printButton.click();
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -88,16 +96,29 @@ const CreateInvoice = () => {
               <div className="lg:col-span-1">
                 <Card className="p-4">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-medium">Preview Invoice</h3>
+                    <h3 className="font-medium">Invoice Actions</h3>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <Button 
                       variant="outline" 
                       size="sm"
                       onClick={() => window.open('#invoice-preview', '_blank')}
+                      className="flex items-center gap-2"
                     >
-                      View Full Preview
+                      <Eye className="h-4 w-4" />
+                      View Preview
+                    </Button>
+                    <Button 
+                      variant="default" 
+                      size="sm"
+                      onClick={handlePrintInvoice}
+                      className="flex items-center gap-2"
+                    >
+                      <Printer className="h-4 w-4" />
+                      Print Invoice
                     </Button>
                   </div>
-                  <p className="text-sm text-gray-500">Complete the form to generate your invoice. Use the button above to view the full preview.</p>
+                  <p className="text-sm text-gray-500 mt-2">Complete the form to generate your invoice. Use the buttons above to preview or print it.</p>
                 </Card>
               </div>
             )}
@@ -142,16 +163,29 @@ const CreateInvoice = () => {
               <div className="lg:col-span-1">
                 <Card className="p-4">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-medium">Preview Invoice</h3>
+                    <h3 className="font-medium">Invoice Actions</h3>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <Button 
                       variant="outline" 
                       size="sm"
                       onClick={() => window.open('#invoice-preview', '_blank')}
+                      className="flex items-center gap-2"
                     >
-                      View Full Preview
+                      <Eye className="h-4 w-4" />
+                      View Preview
+                    </Button>
+                    <Button 
+                      variant="default" 
+                      size="sm"
+                      onClick={handlePrintInvoice}
+                      className="flex items-center gap-2"
+                    >
+                      <Printer className="h-4 w-4" />
+                      Print Invoice
                     </Button>
                   </div>
-                  <p className="text-sm text-gray-500">Complete the form to generate your invoice. Use the button above to view the full preview.</p>
+                  <p className="text-sm text-gray-500 mt-2">Complete the form to generate your invoice. Use the buttons above to preview or print it.</p>
                 </Card>
               </div>
             )}
