@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,7 +13,7 @@ import InvoiceSummary from "@/components/invoice/InvoiceSummary";
 import { useInvoice } from "@/contexts/InvoiceContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 
 const CreateInvoice = () => {
   const [activeTab, setActiveTab] = useState<string>("manual");
@@ -27,11 +26,7 @@ const CreateInvoice = () => {
     if (printButton) {
       printButton.click();
     } else {
-      toast({
-        title: "Print Error",
-        description: "Couldn't find print button. Please try again.",
-        variant: "destructive"
-      });
+      toast.error("Couldn't find print button. Please try again.");
     }
   };
 
@@ -79,12 +74,11 @@ const CreateInvoice = () => {
           </body>
         </html>
       `);
+      
+      // Prevent the window from closing immediately
+      previewWindow.document.close();
     } else {
-      toast({
-        title: "Preview Error",
-        description: "Couldn't generate preview. Please try again.",
-        variant: "destructive"
-      });
+      toast.error("Couldn't generate preview. Please try again.");
     }
   };
 
