@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -154,15 +155,6 @@ const CreateInvoice = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={handleViewPreview}
-                      className="flex items-center gap-2"
-                    >
-                      <Eye className="h-4 w-4" />
-                      View Preview
-                    </Button>
-                    <Button 
                       variant="default" 
                       size="sm"
                       onClick={handlePrintInvoice}
@@ -172,7 +164,7 @@ const CreateInvoice = () => {
                       Print Invoice
                     </Button>
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">Complete the form to generate your invoice. Use the buttons above to preview or print it.</p>
+                  <p className="text-sm text-gray-500 mt-2">Complete the form to generate your invoice. Click the button above to print it.</p>
                 </Card>
               </div>
             )}
@@ -221,15 +213,6 @@ const CreateInvoice = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={handleViewPreview}
-                      className="flex items-center gap-2"
-                    >
-                      <Eye className="h-4 w-4" />
-                      View Preview
-                    </Button>
-                    <Button 
                       variant="default" 
                       size="sm"
                       onClick={handlePrintInvoice}
@@ -239,7 +222,7 @@ const CreateInvoice = () => {
                       Print Invoice
                     </Button>
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">Complete the form to generate your invoice. Use the buttons above to preview or print it.</p>
+                  <p className="text-sm text-gray-500 mt-2">Complete the form to generate your invoice. Click the button above to print it.</p>
                 </Card>
               </div>
             )}
