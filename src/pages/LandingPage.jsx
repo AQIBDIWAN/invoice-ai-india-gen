@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -5,12 +6,15 @@ import { FileText, Bot, ChevronRight, CheckCircle, Award, Shield, Clock, Phone, 
 import { toast } from "sonner";
 
 const LandingPage = () => {
+  console.log("LandingPage component rendering");
+  
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [sellerLogo, setSellerLogo] = useState(null);
 
   // Check if user is logged in on component mount
   useEffect(() => {
+    console.log("LandingPage useEffect running");
     const storedUser = localStorage.getItem('user');
     const storedLogo = localStorage.getItem('sellerLogo');
     
@@ -43,6 +47,11 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Test div to ensure something renders */}
+      <div className="bg-red-500 text-white p-4 text-center">
+        InvoiceAI Landing Page - If you see this, the component is working!
+      </div>
+      
       <header className="border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between flex-wrap">
