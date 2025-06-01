@@ -1,24 +1,17 @@
-interface GSTData {
-  name: string;
-  surname?: string;
-  businessName: string;
-  state: string;
-  city?: string;
-}
 
 // Function to validate GST number format 
-export const validateGST = (gstNumber: string): boolean => {
+export const validateGST = (gstNumber) => {
   // GST number format: 22AAAAA0000A1Z5
   const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
   return gstRegex.test(gstNumber);
 };
 
 // Function to extract state code from GST number
-export const getStateFromGST = (gstNumber: string): string => {
+export const getStateFromGST = (gstNumber) => {
   if (!validateGST(gstNumber)) return "";
   
   const stateCode = gstNumber.substring(0, 2);
-  const stateMap: { [key: string]: string } = {
+  const stateMap = {
     "01": "Jammu & Kashmir",
     "02": "Himachal Pradesh",
     "03": "Punjab",
@@ -64,7 +57,7 @@ export const getStateFromGST = (gstNumber: string): string => {
 };
 
 // Save GST details to local storage
-export const saveGSTDetailsToLocalStorage = (gstNumber: string, details: GSTData) => {
+export const saveGSTDetailsToLocalStorage = (gstNumber, details) => {
   try {
     // Get existing stored GST details or initialize empty object
     const storedGSTDetails = localStorage.getItem('gstDetails');
@@ -83,7 +76,7 @@ export const saveGSTDetailsToLocalStorage = (gstNumber: string, details: GSTData
 };
 
 // Get stored GST details from local storage
-export const getStoredGSTDetails = (gstNumber: string): GSTData | null => {
+export const getStoredGSTDetails = (gstNumber) => {
   try {
     const storedGSTDetails = localStorage.getItem('gstDetails');
     if (!storedGSTDetails) return null;
@@ -97,7 +90,7 @@ export const getStoredGSTDetails = (gstNumber: string): GSTData | null => {
 };
 
 // Generate business name based on GST number pattern - improved deterministic generation
-const generateBusinessName = (gstNumber: string): string => {
+const generateBusinessName = (gstNumber) => {
   // Extract the PAN part of GST (characters 3-12)
   const panPart = gstNumber.substring(2, 12);
   
@@ -132,7 +125,7 @@ const generateBusinessName = (gstNumber: string): string => {
   };
   
   const firstChar = panPart.charAt(0);
-  const nameList = businessTypes[firstChar as keyof typeof businessTypes] || ['Enterprise'];
+  const nameList = businessTypes[firstChar] || ['Enterprise'];
   
   // Make selection more deterministic by using fixed characters from GST
   const nameIndex = Math.min(
@@ -153,7 +146,7 @@ const generateBusinessName = (gstNumber: string): string => {
 };
 
 // Generate person name based on GST number - improved deterministic generation
-const generatePersonName = (gstNumber: string): {name: string, surname: string} => {
+const generatePersonName = (gstNumber) => {
   // Extract the PAN part of GST (characters 3-12)
   const panPart = gstNumber.substring(2, 12);
   
@@ -219,10 +212,10 @@ const generatePersonName = (gstNumber: string): {name: string, surname: string} 
   
   // Make selection more deterministic by using fixed characters from GST
   const firstChar = panPart.charAt(0);
-  const firstNameList = firstNames[firstChar as keyof typeof firstNames] || ['Raj'];
+  const firstNameList = firstNames[firstChar] || ['Raj'];
   
   const secondChar = panPart.charAt(1);
-  const lastNameList = lastNames[secondChar as keyof typeof lastNames] || ['Kumar'];
+  const lastNameList = lastNames[secondChar] || ['Kumar'];
   
   // Use specific characters to ensure consistent results
   const firstNameIndex = Math.min(
@@ -242,7 +235,7 @@ const generatePersonName = (gstNumber: string): {name: string, surname: string} 
 };
 
 // In a real application, this would be an API call to GST Portal
-export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null> => {
+export const fetchGSTDetails = async (gstNumber) => {
   if (!validateGST(gstNumber)) return null;
   
   // First check if we have stored details for this GST number
@@ -257,7 +250,7 @@ export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null
     setTimeout(() => {
       // Only generate mock data if we don't have stored details
       const state = getStateFromGST(gstNumber);
-      const randomCities: {[key: string]: string[]} = {
+      const randomCities = {
         "Delhi": ["Delhi", "New Delhi"],
         "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
         "Karnataka": ["Bangalore", "Mysore", "Hubli"],
@@ -291,12 +284,12 @@ export const fetchGSTDetails = async (gstNumber: string): Promise<GSTData | null
 };
 
 // Convert number to words for Indian currency
-export const numberToWords = (num: number): string => {
+export const numberToWords = (num) => {
   const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
   const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
   const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
-  const convertLessThanOneThousand = (n: number): string => {
+  const convertLessThanOneThousand = (n) => {
     if (n === 0) return '';
     
     if (n < 10) return units[n];
@@ -345,7 +338,7 @@ export const numberToWords = (num: number): string => {
 };
 
 // Format currency in Indian format
-export const formatIndianCurrency = (amount: number): string => {
+export const formatIndianCurrency = (amount) => {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',

@@ -3,16 +3,11 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { FileText, Plus, User, LogOut } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
-
-interface UserData {
-  username: string;
-  isLoggedIn: boolean;
-}
+import { toast } from "sonner";
 
 const Navbar = () => {
-  const [user, setUser] = useState<UserData | null>(null);
-  const [sellerLogo, setSellerLogo] = useState<string | null>(null);
+  const [user, setUser] = useState(null);
+  const [sellerLogo, setSellerLogo] = useState(null);
   const navigate = useNavigate();
   
   // Check if user is logged in on component mount

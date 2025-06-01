@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FileText } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ const Register = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     
     // Simple validation
@@ -107,7 +107,7 @@ const Register = () => {
                 <Checkbox 
                   id="terms" 
                   checked={acceptTerms}
-                  onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
+                  onCheckedChange={(checked) => setAcceptTerms(checked)}
                 />
                 <label 
                   htmlFor="terms" 

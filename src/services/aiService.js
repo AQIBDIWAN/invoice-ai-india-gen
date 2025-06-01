@@ -1,16 +1,7 @@
 
-import { Customer, InvoiceDetails, Product, Seller } from "../contexts/InvoiceContext";
-
-export interface AIInvoiceData {
-  seller: Partial<Seller>;
-  customer: Partial<Customer>;
-  products: Partial<Product>[];
-  invoiceDetails: Partial<InvoiceDetails>;
-}
-
 // This is a mock function that simulates AI processing
 // In a real app, this would connect to an LLM API
-export const generateInvoiceFromText = async (prompt: string): Promise<AIInvoiceData> => {
+export const generateInvoiceFromText = async (prompt) => {
   console.log("AI processing text:", prompt);
   
   // Simulate API call delay
@@ -74,7 +65,7 @@ export const generateInvoiceFromText = async (prompt: string): Promise<AIInvoice
   }
   
   // Parse products
-  const products: Partial<Product>[] = [];
+  const products = [];
   
   // Add main product (always)
   products.push({

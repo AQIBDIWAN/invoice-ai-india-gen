@@ -1,19 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FileText, Bot, ChevronRight, CheckCircle, Award, Shield, Clock, Phone, User, LogOut } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
-
-interface UserData {
-  username: string;
-  isLoggedIn: boolean;
-}
+import { toast } from "sonner";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserData | null>(null);
-  const [sellerLogo, setSellerLogo] = useState<string | null>(null);
+  const [user, setUser] = useState(null);
+  const [sellerLogo, setSellerLogo] = useState(null);
 
   // Check if user is logged in on component mount
   useEffect(() => {
@@ -36,7 +30,7 @@ const LandingPage = () => {
     navigate("/login");
   };
 
-  const handleScrollToSection = (sectionId: string) => {
+  const handleScrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -253,10 +247,8 @@ const LandingPage = () => {
               
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-invoice-light rounded-full flex items-center justify-center mr-4">
-                    <Shield className="h-5 w-5 text-invoice-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Secure & Compliant</h3>
+                  <Shield className="h-5 w-5 text-invoice-primary" />
+                  <h3 className="text-xl font-semibold ml-3">Secure & Compliant</h3>
                 </div>
                 <p className="text-gray-600">
                   Your data is always secure with end-to-end encryption. We ensure full compliance with Indian financial regulations, so you can focus on running your business with peace of mind.

@@ -4,24 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, FileText, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "@/components/ui/sonner";
+import { toast } from "sonner";
 import { useInvoice } from "@/contexts/InvoiceContext";
 
-interface InvoiceRecord {
-  id: string;
-  number: string;
-  customer: string;
-  amount: number;
-  date: string;
-  status: "paid" | "pending";
-  customerDetails: {
-    businessName: string;
-    gstNumber: string;
-  };
-}
-
 const Dashboard = () => {
-  const [invoices, setInvoices] = useState<InvoiceRecord[]>([]);
+  const [invoices, setInvoices] = useState([]);
   const [totalPaid, setTotalPaid] = useState(0);
   const [totalPending, setTotalPending] = useState(0);
   const navigate = useNavigate();
@@ -41,7 +28,7 @@ const Dashboard = () => {
     const storedInvoices = localStorage.getItem('invoices');
     
     if (storedInvoices) {
-      const parsedInvoices: InvoiceRecord[] = JSON.parse(storedInvoices);
+      const parsedInvoices = JSON.parse(storedInvoices);
       setInvoices(parsedInvoices);
       
       // Calculate totals

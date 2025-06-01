@@ -13,24 +13,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { FileText, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "@/components/ui/sonner";
+import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 
-interface InvoiceRecord {
-  id: string;
-  number: string;
-  customer: string;
-  amount: number;
-  date: string;
-  status: "paid" | "pending";
-  customerDetails: {
-    businessName: string;
-    gstNumber: string;
-  };
-}
-
 const AllInvoices = () => {
-  const [invoices, setInvoices] = useState<InvoiceRecord[]>([]);
+  const [invoices, setInvoices] = useState([]);
   const navigate = useNavigate();
 
   // Check if user is logged in
@@ -50,7 +37,7 @@ const AllInvoices = () => {
         const parsedData = JSON.parse(storedInvoices);
         
         // Validate that all invoices have proper status values
-        const validatedInvoices: InvoiceRecord[] = parsedData.map((invoice: any) => ({
+        const validatedInvoices = parsedData.map((invoice) => ({
           ...invoice,
           // Ensure status is either "paid" or "pending"
           status: invoice.status === "paid" ? "paid" : "pending"
@@ -64,10 +51,10 @@ const AllInvoices = () => {
     }
   }, []);
 
-  const handleStatusChange = (invoiceId: string) => {
+  const handleStatusChange = (invoiceId) => {
     const updatedInvoices = invoices.map(invoice => {
       if (invoice.id === invoiceId) {
-        const newStatus: "paid" | "pending" = invoice.status === 'paid' ? 'pending' : 'paid';
+        const newStatus = invoice.status === 'paid' ? 'pending' : 'paid';
         return {
           ...invoice,
           status: newStatus
