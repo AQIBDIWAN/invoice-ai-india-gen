@@ -48,9 +48,9 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
               {sellerLogo ? (
@@ -90,7 +90,7 @@ const LandingPage = () => {
             </nav>
 
             {/* Auth Buttons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               {user?.isLoggedIn ? (
                 <div className="flex items-center space-x-3">
                   <span className="text-sm font-medium text-gray-700 hidden sm:inline">
@@ -103,11 +103,11 @@ const LandingPage = () => {
                 </div>
               ) : (
                 <>
-                  <Button variant="ghost" asChild>
+                  <Button variant="ghost" asChild className="text-gray-600 hover:text-gray-900">
                     <Link to="/login">Log in</Link>
                   </Button>
-                  <Button asChild className="bg-purple-600 hover:bg-purple-700">
-                    <Link to="/register">Sign up</Link>
+                  <Button asChild className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200">
+                    <Link to="/register">Sign up free</Link>
                   </Button>
                 </>
               )}
@@ -179,14 +179,14 @@ const LandingPage = () => {
         </div>
       </section>
         
-        <section id="features" className="py-24 px-4 bg-white">
+        <section id="features" className="py-32 px-4 bg-white">
           <div className="container mx-auto max-w-7xl">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Powerful Features</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Our invoice generator comes with everything you need to create professional, GST-compliant invoices for your Indian business.</p>
+            <div className="text-center mb-24">
+              <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-gray-900">Powerful Features</h2>
+              <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Our invoice generator comes with everything you need to create professional, GST-compliant invoices for your Indian business.</p>
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20">
               <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center mb-6">
                   <FileText className="h-8 w-8 text-purple-600" />
@@ -558,38 +558,39 @@ const LandingPage = () => {
         </section>
         
         {/* Footer */}
-      <footer className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer className="bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {/* Logo & Description */}
             <div className="col-span-1 md:col-span-2">
-              <Link to="/" className="flex items-center space-x-2 mb-4">
-                <Bot className="h-8 w-8 text-purple-600" />
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <Link to="/" className="flex items-center space-x-3 mb-6">
+                <Bot className="h-10 w-10 text-purple-400" />
+                <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   InvoiceAI
                 </span>
               </Link>
-              <p className="text-gray-600 mb-6 max-w-md">
-                The most intuitive AI-powered invoice generator for Indian businesses. 
-                Create professional, GST-compliant invoices in seconds.
+              <p className="text-gray-300 mb-8 max-w-md text-lg leading-relaxed">
+                Transform your business with AI-powered invoice generation. 
+                GST-compliant, professional, and lightning-fast.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-purple-600 hover:bg-purple-700" 
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200" 
                   asChild
                 >
-                  <Link to="/create-invoice">
-                    Start Creating
+                  <Link to="/register">
+                    Sign up free
                   </Link>
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
+                  className="border-2 border-gray-600 text-gray-300 hover:border-purple-400 hover:text-purple-400 px-8 py-3 rounded-xl font-semibold transition-all duration-200"
                   asChild
                 >
-                  <Link to="/dashboard">
-                    View Dashboard
+                  <Link to="/login">
+                    Log in
                   </Link>
                 </Button>
               </div>
@@ -597,12 +598,12 @@ const LandingPage = () => {
 
             {/* Product Links */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Product</h3>
-              <ul className="space-y-3">
+              <h3 className="text-lg font-bold text-white mb-6">Product</h3>
+              <ul className="space-y-4">
                 <li>
                   <button 
                     onClick={() => handleScrollToSection('features')} 
-                    className="text-gray-600 hover:text-purple-600 transition-colors"
+                    className="text-gray-300 hover:text-purple-400 transition-colors text-left"
                   >
                     Features
                   </button>
@@ -610,19 +611,24 @@ const LandingPage = () => {
                 <li>
                   <button 
                     onClick={() => handleScrollToSection('pricing')} 
-                    className="text-gray-600 hover:text-purple-600 transition-colors"
+                    className="text-gray-300 hover:text-purple-400 transition-colors text-left"
                   >
                     Pricing
                   </button>
                 </li>
                 <li>
-                  <Link to="/create-invoice" className="text-gray-600 hover:text-purple-600 transition-colors">
+                  <Link to="/create-invoice" className="text-gray-300 hover:text-purple-400 transition-colors">
                     Create Invoice
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="text-gray-600 hover:text-purple-600 transition-colors">
+                  <Link to="/dashboard" className="text-gray-300 hover:text-purple-400 transition-colors">
                     Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/all-invoices" className="text-gray-300 hover:text-purple-400 transition-colors">
+                    All Invoices
                   </Link>
                 </li>
               </ul>
@@ -630,29 +636,34 @@ const LandingPage = () => {
 
             {/* Company Links */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
-              <ul className="space-y-3">
+              <h3 className="text-lg font-bold text-white mb-6">Company</h3>
+              <ul className="space-y-4">
                 <li>
                   <button 
                     onClick={() => handleScrollToSection('about')} 
-                    className="text-gray-600 hover:text-purple-600 transition-colors"
+                    className="text-gray-300 hover:text-purple-400 transition-colors text-left"
                   >
-                    About
+                    About Us
                   </button>
                 </li>
                 <li>
-                  <Link to="/contact" className="text-gray-600 hover:text-purple-600 transition-colors">
+                  <Link to="/contact" className="text-gray-300 hover:text-purple-400 transition-colors">
                     Contact
                   </Link>
                 </li>
                 <li>
-                  <Link to="/support" className="text-gray-600 hover:text-purple-600 transition-colors">
+                  <Link to="/support" className="text-gray-300 hover:text-purple-400 transition-colors">
                     Support
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog" className="text-gray-600 hover:text-purple-600 transition-colors">
+                  <Link to="/blog" className="text-gray-300 hover:text-purple-400 transition-colors">
                     Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/careers" className="text-gray-300 hover:text-purple-400 transition-colors">
+                    Careers
                   </Link>
                 </li>
               </ul>
@@ -660,19 +671,19 @@ const LandingPage = () => {
           </div>
           
           {/* Bottom Footer */}
-          <div className="border-t border-gray-200 mt-12 pt-8">
+          <div className="border-t border-gray-700 mt-16 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-500 text-sm">
-                © 2024 InvoiceAI. All rights reserved.
+              <p className="text-gray-400 text-sm">
+                © 2024 InvoiceAI. Built with ❤️ for Indian businesses.
               </p>
-              <div className="flex space-x-6 mt-4 md:mt-0">
-                <Link to="/privacy" className="text-gray-500 hover:text-purple-600 text-sm transition-colors">
+              <div className="flex space-x-8 mt-6 md:mt-0">
+                <Link to="/privacy" className="text-gray-400 hover:text-purple-400 text-sm transition-colors">
                   Privacy Policy
                 </Link>
-                <Link to="/terms" className="text-gray-500 hover:text-purple-600 text-sm transition-colors">
+                <Link to="/terms" className="text-gray-400 hover:text-purple-400 text-sm transition-colors">
                   Terms of Service
                 </Link>
-                <Link to="/cookies" className="text-gray-500 hover:text-purple-600 text-sm transition-colors">
+                <Link to="/cookies" className="text-gray-400 hover:text-purple-400 text-sm transition-colors">
                   Cookie Policy
                 </Link>
               </div>
