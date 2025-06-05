@@ -118,25 +118,27 @@ const LandingPage = () => {
       </header>
       
       <main className="flex-grow">
-        <section className="py-20 px-4">
-          <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-              <div className="space-y-6 animate-fade-in">
-                <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                  Create Professional Invoices with 
-                  <span className="text-invoice-primary"> AI Assistance</span>
+        <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-50">
+          <div className="container mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-8">
+                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-gray-900">
+                  Create Professional Invoices with{" "}
+                  <span className="text-transparent bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text">
+                    AI Assistance
+                  </span>
                 </h1>
-                <p className="text-lg text-gray-600">
+                <p className="text-xl text-gray-600 leading-relaxed">
                   Generate GST-compliant invoices in seconds. Our AI-powered invoice generator streamlines your billing process for Indian businesses.
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button size="lg" asChild>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200" asChild>
                     <Link to="/create-invoice">
                       Create Invoice
-                      <ChevronRight className="ml-1 h-4 w-4" />
+                      <ChevronRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
+                  <Button size="lg" variant="outline" className="border-2 border-gray-300 hover:border-purple-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-200" asChild>
                     <Link to="/dashboard">
                       View Dashboard
                     </Link>
@@ -144,95 +146,95 @@ const LandingPage = () => {
                 </div>
               </div>
               
-              <div className="relative animate-slide-up">
-                <div className="absolute -top-10 -left-10 w-40 h-40 bg-invoice-light rounded-full opacity-50 blur-3xl"></div>
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-invoice-light rounded-full opacity-50 blur-3xl"></div>
-                <div className="relative z-10 shadow-xl rounded-lg overflow-hidden border">
+              <div className="relative">
+                <div className="relative z-10 bg-white rounded-2xl shadow-2xl p-8 border">
                   <img 
                     src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2011&q=80" 
                     alt="Invoice Generator Preview" 
-                    className="w-full h-auto"
+                    className="w-full h-auto rounded-xl"
                   />
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-2xl blur-3xl opacity-20 -z-10 transform rotate-6"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur-3xl opacity-20 -z-10 transform -rotate-6"></div>
               </div>
             </div>
           </div>
         </section>
         
-        <section id="features" className="py-20 px-4 bg-gray-50">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">Our invoice generator comes with everything you need to create professional, GST-compliant invoices for your Indian business.</p>
+        <section id="features" className="py-24 px-4 bg-white">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Powerful Features</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Our invoice generator comes with everything you need to create professional, GST-compliant invoices for your Indian business.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-invoice-light rounded-lg flex items-center justify-center mb-4">
-                  <FileText className="h-6 w-6 text-invoice-primary" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+              <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                  <FileText className="h-8 w-8 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">GST Compliance</h3>
-                <p className="text-gray-600">Automatically validate GST numbers and generate invoices that comply with Indian tax regulations.</p>
-                <ul className="mt-4 space-y-2">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">GST Compliance</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">Automatically validate GST numbers and generate invoices that comply with Indian tax regulations.</p>
+                <ul className="space-y-4">
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Automatic GST calculation based on HSN/SAC codes</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Automatic GST calculation based on HSN/SAC codes</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>CGST & SGST/IGST split for interstate transactions</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">CGST & SGST/IGST split for interstate transactions</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>GST number validation with proper format checking</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">GST number validation with proper format checking</span>
                   </li>
                 </ul>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-invoice-light rounded-lg flex items-center justify-center mb-4">
-                  <Bot className="h-6 w-6 text-invoice-primary" />
+              <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                  <Bot className="h-8 w-8 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">AI-Powered</h3>
-                <p className="text-gray-600">Let our AI generate invoices from simple text descriptions, saving you time on manual data entry.</p>
-                <ul className="mt-4 space-y-2">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">AI-Powered</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">Let our AI generate invoices from simple text descriptions, saving you time on manual data entry.</p>
+                <ul className="space-y-4">
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Auto-fill invoice items from plain text descriptions</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Auto-fill invoice items from plain text descriptions</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Smart product categorization and tax rate assignment</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Smart product categorization and tax rate assignment</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Intelligent customer data extraction and matching</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Intelligent customer data extraction and matching</span>
                   </li>
                 </ul>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-invoice-light rounded-lg flex items-center justify-center mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-invoice-primary">
+              <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-purple-600">
                     <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
                     <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
                     <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Complete Business Solution</h3>
-                <p className="text-gray-600">More than just invoices - a complete solution for your business finances.</p>
-                <ul className="mt-4 space-y-2">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Complete Business Solution</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">More than just invoices - a complete solution for your business finances.</p>
+                <ul className="space-y-4">
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Dashboard with financial insights and analytics</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Dashboard with financial insights and analytics</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Customer management and history tracking</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Customer management and history tracking</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Payment tracking and automated reminders</span>
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700">Payment tracking and automated reminders</span>
                   </li>
                 </ul>
               </div>
@@ -264,135 +266,120 @@ const LandingPage = () => {
           </div>
         </section>
         
-        <section id="pricing" className="py-20 px-4">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for your business needs.</p>
+        <section id="pricing" className="py-24 px-4 bg-gray-50">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Simple, Transparent Pricing</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Choose the plan that works best for your business needs.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-md border">
-                <h3 className="text-xl font-semibold mb-2">Free</h3>
-                <div className="text-3xl font-bold mb-4">₹0<span className="text-lg text-gray-500 font-normal">/month</span></div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Free</h3>
+                <div className="mb-6">
+                  <span className="text-5xl font-bold text-gray-900">₹0</span>
+                  <span className="text-gray-500 text-lg">/month</span>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Up to 5 invoices per month
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Basic invoice templates
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     GST validation
                   </li>
                   <li className="flex items-center text-gray-400">
-                    <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-5 h-5 mr-3 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                     No AI features
                   </li>
                   <li className="flex items-center text-gray-400">
-                    <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-5 h-5 mr-3 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                     No customer management
                   </li>
                 </ul>
-                <Button className="w-full" variant="outline">Get Started</Button>
+                <Button className="w-full py-3 text-lg font-semibold rounded-xl" variant="outline">Get Started</Button>
               </div>
               
-              <div className="bg-invoice-primary bg-opacity-5 p-8 rounded-lg shadow-lg border-2 border-invoice-primary relative">
-                <div className="absolute top-0 right-0 bg-invoice-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-                  POPULAR
+              <div className="bg-white p-8 rounded-2xl shadow-2xl border-2 border-purple-500 relative transform lg:-translate-y-4 hover:shadow-3xl transition-all duration-300">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-bold px-6 py-2 rounded-full">
+                    POPULAR
+                  </span>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Business</h3>
-                <div className="text-3xl font-bold mb-4">₹999<span className="text-lg text-gray-500 font-normal">/month</span></div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Business</h3>
+                <div className="mb-6">
+                  <span className="text-5xl font-bold text-gray-900">₹999</span>
+                  <span className="text-gray-500 text-lg">/month</span>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Unlimited invoices
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     All premium templates
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Basic AI generation
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Customer management
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Email invoices
                   </li>
                 </ul>
-                <Button className="w-full">Get Started</Button>
+                <Button className="w-full py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+                  Get Started
+                </Button>
               </div>
               
-              <div className="bg-white p-8 rounded-lg shadow-md border">
-                <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-                <div className="text-3xl font-bold mb-4">₹2499<span className="text-lg text-gray-500 font-normal">/month</span></div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+              <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Enterprise</h3>
+                <div className="mb-6">
+                  <span className="text-5xl font-bold text-gray-900">₹2499</span>
+                  <span className="text-gray-500 text-lg">/month</span>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Everything in Business plan
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Multiple user accounts
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Advanced AI features
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     API access
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Priority support
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                  <li className="flex items-center text-gray-700">
+                    <CheckCircle className="h-5 w-5 mr-3 text-green-500 flex-shrink-0" />
                     Custom integration support
                   </li>
                 </ul>
-                <Button className="w-full" variant="outline">Contact Sales</Button>
+                <Button className="w-full py-3 text-lg font-semibold rounded-xl" variant="outline">Contact Sales</Button>
               </div>
             </div>
             
