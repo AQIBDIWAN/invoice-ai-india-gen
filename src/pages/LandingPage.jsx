@@ -47,15 +47,12 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Test div to ensure something renders */}
-      <div className="bg-red-500 text-white p-4 text-center">
-        InvoiceAI Landing Page - If you see this, the component is working!
-      </div>
       
-      <header className="border-b">
+      <header className="border-b bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between flex-wrap">
-            <Link to="/" className="flex items-center gap-2 mb-2 sm:mb-0">
+          <div className="flex items-center justify-between">
+            {/* Logo - Top Left */}
+            <Link to="/" className="flex items-center gap-2">
               {sellerLogo ? (
                 <img 
                   src={sellerLogo} 
@@ -68,53 +65,53 @@ const LandingPage = () => {
               <span className="font-bold text-xl text-invoice-dark">InvoiceAI</span>
             </Link>
             
-            <nav className="hidden md:flex items-center gap-6">
+            {/* Navigation - Center */}
+            <nav className="hidden md:flex items-center gap-8">
               <button 
                 onClick={() => handleScrollToSection('features')} 
-                className="text-gray-600 hover:text-invoice-primary transition-colors"
+                className="text-gray-600 hover:text-invoice-primary transition-colors font-medium"
               >
                 Features
               </button>
               <button 
                 onClick={() => handleScrollToSection('pricing')} 
-                className="text-gray-600 hover:text-invoice-primary transition-colors"
+                className="text-gray-600 hover:text-invoice-primary transition-colors font-medium"
               >
                 Pricing
               </button>
               <button 
                 onClick={() => handleScrollToSection('about')} 
-                className="text-gray-600 hover:text-invoice-primary transition-colors"
+                className="text-gray-600 hover:text-invoice-primary transition-colors font-medium"
               >
                 About
               </button>
             </nav>
             
-            <div className="flex items-center gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
+            {/* Login/Register - Top Right */}
+            <div className="flex items-center gap-3">
               {user?.isLoggedIn ? (
-                <>
-                  {/* User info and logout */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium hidden sm:inline">
-                      {user.username}
-                    </span>
-                    <Button variant="outline" onClick={handleLogout} className="text-xs md:text-sm px-2 md:px-3">
-                      <LogOut className="h-4 w-4 mr-1 md:mr-2" />
-                      Logout
-                    </Button>
-                  </div>
-                </>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium hidden sm:inline">
+                    {user.username}
+                  </span>
+                  <Button variant="outline" onClick={handleLogout} size="sm">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
               ) : (
-                <Button variant="outline" asChild className="text-xs md:text-sm px-2 md:px-3">
-                  <Link to="/login">
-                    <User className="h-4 w-4 mr-1 md:mr-2" />
-                    Login
-                  </Link>
-                </Button>
+                <>
+                  <Button variant="outline" asChild size="sm">
+                    <Link to="/login">
+                      <User className="h-4 w-4 mr-2" />
+                      Login
+                    </Link>
+                  </Button>
+                  <Button asChild size="sm">
+                    <Link to="/register">Register</Link>
+                  </Button>
+                </>
               )}
-              
-              <Button asChild className="text-xs md:text-sm px-2 md:px-3">
-                <Link to="/register">Register</Link>
-              </Button>
             </div>
           </div>
         </div>
